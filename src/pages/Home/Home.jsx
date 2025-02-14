@@ -7,6 +7,7 @@ import Banner from './Banner/Banner'
 import FeatureProductCarousel from './FeatureProduct/FeatureProductCarousel'
 import Category from './Category/Category'
 import NewArrivalsProductCarosole from './NewArrivalsProduct/NewArrivalsProductCarosole'
+import Partner from './Partner/Partner'
 
 const Home = () => {
   return (
@@ -25,6 +26,7 @@ const Home = () => {
       <Rooms />
       {/* <Tutor></Tutor> */}
       <NewArrivalsProductCarosole/>
+      <Partner/>
     </div>
   )
 }
