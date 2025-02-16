@@ -15,8 +15,8 @@ const Statistics = () => {
   return <>
   {role === "admin" && <AdminStatistics></AdminStatistics>}
   {/* {role === "admin" && <AdminStatistics2></AdminStatistics2>} */}
-  {role === "tutor" && <TutorStatistics></TutorStatistics>}
-  {role === "student" && <StudentStatistics></StudentStatistics>}
+  {role === "seller" && <TutorStatistics></TutorStatistics>}
+  {role === "user" && <StudentStatistics></StudentStatistics>}
   </>;
 };
 

@@ -8,6 +8,7 @@ import FeatureProductCarousel from './FeatureProduct/FeatureProductCarousel'
 import Category from './Category/Category'
 import NewArrivalsProductCarosole from './NewArrivalsProduct/NewArrivalsProductCarosole'
 import Partner from './Partner/Partner'
+import BestOfWeek from './BestOfWeek/BestOfWeek'
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
       {/* Rooms section */}
       <Category/>
       <Rooms />
+      <BestOfWeek/>
       {/* <Tutor></Tutor> */}
       <NewArrivalsProductCarosole/>
       <Partner/>

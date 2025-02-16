@@ -1,29 +1,23 @@
 import { Link } from "react-router-dom";
 
-const Slide = ({ image, text, des }) => {
+const Slide = ({ image, text, discountPrice, price }) => {
   return (
-    <div
-      className="w-full bg-center object-cover bg-cover h-[22rem]"
-      style={{
-        backgroundImage: `url(${image})`,
-      }}
-    >
-      <div className="flex items-center justify-center w-full h-full bg-gray-900/70">
-        <div className="text-center">
-          <h1 className="text-3xl mb-2 font-semibold text-white lg:text-4xl">
-            {text}
-          </h1>
-          <p className=" text-white max-w-[800px] mb-3">{des}</p>
-          <br />
-          <Link
-            //to="/all-foods"
-            className="w-full px-5 py-4 mt-4 text-md font-medium text-white capitalize bg-gradient-to-r from-red-900 to-violet-900 rounded-md lg:w-auto border border-green-800"
-          >
-            Discover More Optunity
-          </Link>
-        </div>
-      </div>
-    </div>
+    <div className="max-w-xs rounded-md h-96 shadow-md dark:bg-gray-50 dark:text-gray-800">
+	<div className="border h-[70%] w-72">
+  <img src={image} alt="" className="object-cover object-center w-full rounded-t-md  dark:bg-gray-500" />
+  </div>
+
+	<div className="flex flex-col justify-between p-2 space-y-3">
+		<div className="space-y-2">
+			<h2 className="text-lg font-semibold tracking-wide">{
+        text.length <= 25? text : text.slice(0, 20) + "..." + text.slice(-5)
+        }</h2>
+			<p className="dark:text-gray-800 text-sm">{discountPrice}Taka {price}</p>
+		</div>
+		<button type="button" className="flex items-center justify-center w-full  font-semibold tracking-wide rounded-md hover:bg-green-600 hover:text-gray-50">Add to Cart</button>
+	</div>
+
+</div>
   );
 };
 

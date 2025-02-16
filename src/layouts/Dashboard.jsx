@@ -80,13 +80,18 @@ const Dashboard = () => {
 
                     <li>
                       <NavLink to="/dashboard/viewSession">
-                        <FaList /> View All Sessions
+                        <FaList /> Manage Category
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/viewSession">
+                        <FaList /> Payment management
                       </NavLink>
                     </li>
 
                     <li>
                       <NavLink to="/dashboard/view-all-materials">
-                        <FaEye /> All Materials
+                        <FaEye /> Sales Report
                       </NavLink>
                     </li>
 
@@ -95,10 +100,15 @@ const Dashboard = () => {
                         <FaUsers /> Manage Users
                       </NavLink>
                     </li>
+                    <li>
+                      <NavLink to="/dashboard/manage-users">
+                        <FaUsers /> Manage Advertise
+                      </NavLink>
+                    </li>
                   </>
                 )}
 
-                {role === "student" && (
+                {role === "user" && (
                   <>
                     <li>
                       <NavLink end to="/dashboard">
@@ -132,7 +142,7 @@ const Dashboard = () => {
                   </>
                 )}
 
-                {role === "tutor" && (
+                {role === "seller" && (
                   <>
                     <li>
                       <NavLink end to="/dashboard">
@@ -141,14 +151,14 @@ const Dashboard = () => {
                     </li>
 
                     <li>
-                      <NavLink to="/dashboard/createStudySession">
-                        <FaCalendar /> Create Study Session
+                      <NavLink to="/dashboard/createProduct">
+                        <FaCalendar /> Create Products
                       </NavLink>
                     </li>
 
                     <li>
                       <NavLink to="/dashboard/viewStudySession">
-                        <FaList /> View all Sessions
+                        <FaList /> View all Products
                       </NavLink>
                     </li>
 
@@ -163,8 +173,18 @@ const Dashboard = () => {
                         <FaEye /> View all Materials
                       </NavLink>
                     </li>
+                    <li>
+                      <NavLink to="/dashboard/viewMaterials">
+                        <FaEye /> Payment History
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/viewMaterials">
+                        <FaEye /> Ask Advertisement
+                      </NavLink>
+                    </li>
                   </>
-                )}
+                 )} 
               </ul>
             </div>
 

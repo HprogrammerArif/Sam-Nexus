@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <>
-      <h3 className="font-bold lg:text-3xl mt-16 border-b flex justify-center">
+      <h3 className="font-bold lg:text-3xl mt-12 border-b flex justify-center">
         FEATURED PRODUCTS
       </h3>
       <Swiper

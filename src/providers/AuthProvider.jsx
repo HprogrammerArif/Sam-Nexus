@@ -90,9 +90,10 @@ const AuthProvider = ({ children }) => {
   //   return data
   // }
 
+
   // save user
 
-  const saveUser = async (email, name, photoURL, role = "student") => {
+  const saveUser = async (email, name, photoURL, role = "user") => {
     const currentUser = {
       email: email,
       name: name,

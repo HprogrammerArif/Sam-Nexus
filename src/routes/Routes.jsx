@@ -15,23 +15,24 @@ import ManageNotes from "../pages/Dashboard/Guest/ManageNotes";
 import UpdateItem from "../pages/Dashboard/Guest/UpdateItem";
 import StudyMaterials from "../pages/Dashboard/Guest/StudyMaterials";
 import TutorRoute from "./TutorRoute";
-import CreateStudySession from "../pages/Dashboard/Host/CreateStudySession";
+import CreateStudySession from "../pages/Dashboard/Seller/CreateProduct";
 import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AllSession from "../pages/Home/Session/AllSession";
-import ViewAllSession from "../pages/Dashboard/Host/ViewAllSession";
+import ViewAllSession from "../pages/Dashboard/Seller/ViewAllSession";
 import UpdateSession from "../pages/Home/Session/UpdateSession";
 import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ViewAllSessionByAdmin";
-import RejectDetails from "../pages/Dashboard/Host/RejectDetails";
-import UploadMaterials from "../pages/Dashboard/Host/UploadMaterials";
-import UploadMaterialForm from "../pages/Dashboard/Host/UploadMaterialForm";
-import ViewMaterials from "../pages/Dashboard/Host/ViewMaterials";
-import UpdateMaterials from "../pages/Dashboard/Host/UpdateMaterials";
+import RejectDetails from "../pages/Dashboard/Seller/RejectDetails";
+import UploadMaterials from "../pages/Dashboard/Seller/UploadMaterials";
+import UploadMaterialForm from "../pages/Dashboard/Seller/UploadMaterialForm";
+import ViewMaterials from "../pages/Dashboard/Seller/ViewMaterials";
+import UpdateMaterials from "../pages/Dashboard/Seller/UpdateMaterials";
 import ViewAllMaterials from "../pages/Dashboard/Admin/ViewAllMaterials";
 import BookingMaterials from "../pages/Dashboard/Guest/BookingMaterials";
 import ViewBookedMaterials from "../pages/Dashboard/Guest/ViewBookedMaterials";
 import AdminRoute from "./AdminRoute";
 import Statistics from "../components/Statistics/Statistics";
+import Campaign from "../pages/Home/Campaign/Campaign";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/campaign",
+        element: <Campaign/>,
       },
       {
         path: "/session/:id",
@@ -238,7 +243,7 @@ export const router = createBrowserRouter([
 
       //TUTOR ROUTE
       {
-        path: "createStudySession",
+        path: "createProduct",
         element: (
           <PrivateRoute>
             <TutorRoute>

@@ -18,11 +18,7 @@ const SignUp = () => {
     user,
   } = useAuth();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, user]);
+
 
 
   const handleSubmit = async (e) => {
@@ -62,9 +58,17 @@ const SignUp = () => {
   };
   
 
+    // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [navigate, user]);
+
   
-  // if (user || loading) return;
-  if (user) return navigate("/");
+  if (user) {
+  navigate("/");
+  return null; // Prevents rendering anything after calling navigate
+}
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -97,8 +101,8 @@ const SignUp = () => {
                 id="role"
                 className="select select-bordered w-full max-w-xs"
               >
-                <option value="student">Student</option>
-                <option value="tutor">Tutor</option>
+                <option value="user">User</option>
+                <option value="seller">Seller</option>
                 {/* <option value="admin">Admin</option> */}
               </select>
             </div>

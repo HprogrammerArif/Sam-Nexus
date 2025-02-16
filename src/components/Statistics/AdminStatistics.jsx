@@ -1,6 +1,11 @@
 import { Calendar } from "react-date-range";
-import { FaUserAlt, FaDollarSign } from "react-icons/fa";
-import { BsFillCartPlusFill, BsFillHouseDoorFill } from "react-icons/bs";
+import { FaUserAlt, FaDollarSign, FaMoneyBillAlt } from "react-icons/fa";
+import {
+  BsBox,
+  BsFillCartPlusFill,
+  BsFillHouseDoorFill,
+  BsPaypal,
+} from "react-icons/bs";
 import SalesLineChart from "../Charts/SalesLineChart";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -16,7 +21,7 @@ const AdminStatistics = () => {
     },
   });
   console.log(statData);
-  if(isLoading) return <LoadingSpinner/>
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>
@@ -32,7 +37,7 @@ const AdminStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Sales
+                Total Revenue
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
                 ${statData?.totalPrice}
@@ -48,10 +53,10 @@ const AdminStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Student
+                Total Users
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-              {statData?.totalStudent}
+                {statData?.totalStudent}
               </h4>
             </div>
           </div>
@@ -64,26 +69,60 @@ const AdminStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Session Booked
+                Total Ordered
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-              {statData?.totalBookings}
+                {statData?.totalBookings}
               </h4>
             </div>
           </div>
-          {/* Total Rooms */}
+
+          {/* Total Product */}
           <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
             <div
               className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-pink-600 to-pink-400 text-white shadow-pink-500/40`}
             >
-              <BsFillHouseDoorFill className="w-6 h-6 text-white" />
+              <BsBox className="w-6 h-6 text-white" />
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Session
+                Total Products
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-              {statData?.totalSession}
+                {statData?.totalSession}
+              </h4>
+            </div>
+          </div>
+
+          {/* Total Product */}
+          <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
+            <div
+              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-pink-600 to-pink-400 text-white shadow-pink-500/40`}
+            >
+              <FaDollarSign className="w-6 h-6 text-white" />
+            </div>
+            <div className="p-4 text-right">
+              <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
+                Total Paid
+              </p>
+              <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                {statData?.totalSession}
+              </h4>
+            </div>
+          </div>
+          {/* Users Card */}
+          <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
+            <div
+              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
+            >
+              <FaMoneyBillAlt className="w-6 h-6 text-white" />
+            </div>
+            <div className="p-4 text-right">
+              <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
+                Total Pending
+              </p>
+              <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                {statData?.totalStudent}
               </h4>
             </div>
           </div>

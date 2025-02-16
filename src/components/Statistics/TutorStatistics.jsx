@@ -42,6 +42,40 @@ const TutorStatistics = () => {
             </div>
           </div>
 
+           {/* Total Bookings */}
+           <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
+            <div
+              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-blue-600 to-blue-400 text-white shadow-blue-500/40`}
+            >
+              <FaDollarSign className="w-6 h-6 text-white" />
+            </div>
+            <div className="p-4 text-right">
+              <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
+                Total Pending
+              </p>
+              <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+              {statData?.totalBookings}
+              </h4>
+            </div>
+          </div>
+
+          {/* Users Card */}
+          <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
+            <div
+              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
+            >
+              <FaDollarSign className="w-6 h-6 text-white" />
+            </div>
+            <div className="p-4 text-right">
+              <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
+                Total Paid
+              </p>
+              <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+              {statData?.TutorSince && formatDistanceToNow(statData?.TutorSince)}
+              </h4>
+            </div>
+          </div>
+
           {/* Total Bookings */}
           <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
             <div
@@ -51,7 +85,7 @@ const TutorStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Bookings
+                Total Orders
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
               {statData?.totalBookings}
@@ -67,7 +101,7 @@ const TutorStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Sesions
+                Total Products
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
               {statData?.totalSession}
