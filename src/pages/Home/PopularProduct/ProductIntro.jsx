@@ -1,4 +1,4 @@
-const TopIntro = ({ subHeading, heading, description }) => {
+const ProductIntro = ({ subHeading, heading, description }) => {
   return (
     <div>
       <div className="container px-6 py-10 mx-auto">
@@ -16,4 +16,4 @@ const TopIntro = ({ subHeading, heading, description }) => {
   );
 };
 
-export default TopIntro;
+export default ProductIntro;

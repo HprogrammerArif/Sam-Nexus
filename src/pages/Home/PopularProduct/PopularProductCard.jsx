@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Card = ({ room  }) => {
-  console.log(room);
+const PopularProductCard = ({ product  }) => {
+  console.log(product);
   return (
     <div
-      //to={`/job/${room._id}`}
+      //to={`/job/${product._id}`}
       className="w-full max-w-md px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all"
     >
       <div className="flex mt-1 items-center justify-between">
         <span className="px-3 py-1 text-sm text-blue-800 uppercase bg-blue-200 rounded-full ">
           <button>
-            {new Date(room?.registration_end_date) > new Date()
+            {new Date(product?.registration_end_date) > new Date()
               ? "Ongoing"
               : "Closed"}
           </button>
@@ -21,15 +21,15 @@ const Card = ({ room  }) => {
 
       <div className="flex justify-around flex-col">
         <h1 className="mt-2 text-lg font-semibold text-gray-800 ">
-          {room?.title>30? room?.title.substring(0, 50): room?.title}...
+          {product?.title>30? product?.title.substring(0, 50): product?.title}...
         </h1>
 
-        <p title={room?.description} className="mt-2 text-sm text-gray-600 ">
-          {room?.description.substring(0, 180)}.........
+        <p title={product?.description} className="mt-2 text-sm text-gray-600 ">
+          {product?.description.substring(0, 180)}.........
         </p>
         
         <div className="mt-2 text-sm text-gray-600 ">
-            <Link to={`/session/${room?._id}`}>
+            <Link to={`/session/${product?._id}`}>
             <button className="px-2 py-1 text-white bg-gradient-to-r from-green-900 to-red-800">
               Read More
             </button>
@@ -41,15 +41,15 @@ const Card = ({ room  }) => {
   );
 };
 
-Card.propTypes = {
-  room: PropTypes.object,
+PopularProductCard.propTypes = {
+  product: PropTypes.object,
 };
 
-export default Card;
+export default PopularProductCard;
 
 {
   /* <button>
-            {new Date(room?.registrationEndTime) > new Date()
+            {new Date(product?.registrationEndTime) > new Date()
               ? "Ongoing"
               : "Closed"}
           </button> */

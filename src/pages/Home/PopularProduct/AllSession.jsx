@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import Container from "../../../components/Shared/Container";
-import Card from "./Card";
+import Card from "./PopularProductCard";
 import Cover from "../../../components/Cover/Cover";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";

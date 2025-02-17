@@ -1,44 +1,45 @@
-import Card from "./Card";
 import Container from "../../../components/Shared/Container";
 import Heading from "../../../components/Shared/Heading";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
-import TopIntro from "./TopIntro";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import ProductIntro from "./ProductIntro";
+import PopularProductCard from "./PopularProductCard";
 
-const Rooms = () => {
+const PopularProduct = () => {
   //const axiosCommon = useAxiosCommon();
   const axiosSecure = useAxiosSecure()
 
-  const { data: allSessions = [], isLoading, refetch } = useQuery({
-    queryKey: ["all-sessions"],
+  const { data: allPopularProducts = [], isLoading } = useQuery({
+    queryKey: ["all-popular-products"],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/all-sessions`);
+      const { data } = await axiosSecure(`/all-popular-products`);
       return data;
     },
   });
+  console.log(allPopularProducts);
   if (isLoading) return <LoadingSpinner />;
 
   return (
     <Container>
-      <TopIntro
+      <ProductIntro
         subHeading="We Provide Best!!"
         heading="Our Best and Populer Product!!"
         description={
           "Our All Top Metarial is your gateway to extraordinary culinary experiences. We believe that you deserve nothing but the best, which is why we meticulously curate our selection to offer you exceptional flavors"
         }
-      ></TopIntro>
-      {allSessions && allSessions.length > 0 ? (
+      ></ProductIntro>
+      {allPopularProducts && allPopularProducts.length > 0 ? (
         <>
           <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
-            {allSessions.filter(job => job.status ==='Approved').slice(0, 6).map((session) => (
-              <Card key={session._id} room={session} />
+            {/* {allPopularProducts.filter(job => job.status ==='Approved').slice(0, 6).map((product) => ( */}
+            {allPopularProducts.filter(job => job.status ==='pending').slice(0, 6).map((product) => (
+              <PopularProductCard key={product._id} product={product} />
             ))}
           </div>
-          {allSessions.filter(job => job.status ==='Approved').length > 6 && (
-            <Link to="/all-session" className="flex justify-center">
+          {allPopularProducts.filter(job => job.status ==='pending').length > 6 && (
+            <Link to="/all-products" className="flex justify-center">
               <button className="bg-gray-600  p-2 px-5 mt-3 text-white">
                 See More
               </button>
@@ -49,8 +50,8 @@ const Rooms = () => {
         <div className="flex items-center justify-center min-h-[calc(100vh-300px)]">
           <Heading
             center={true}
-            title="No Study Session Available Right Now!"
-            subtitle="Please Wait Untill New Session Start!!."
+            title="No Products Available Right Now!"
+            subtitle="Please Wait Untill New Products Added!!."
           />
         </div>
       )}
@@ -58,4 +59,4 @@ const Rooms = () => {
   );
 };
 
-export default Rooms;
+export default PopularProduct;

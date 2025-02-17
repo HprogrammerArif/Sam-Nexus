@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
-import TopIntro from "../Session/TopIntro";
+import TopIntro from "../PopularProduct/ProductIntro";
 import TutorCard from "./TutorCard";
 import Container from "../../../components/Shared/Container";
 

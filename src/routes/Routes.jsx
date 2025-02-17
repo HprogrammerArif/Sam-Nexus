@@ -4,7 +4,6 @@ import Home from "../pages/Home/Home";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
-import SessionDetails from "../pages/Home/Session/SessionDetails";
 import Main from "../layouts/Main";
 import Dashboard from "../layouts/Dashboard";
 import UserHome from "../pages/Dashboard/Guest/UserHome";
@@ -14,13 +13,11 @@ import CreateNotes from "../pages/Dashboard/Guest/CreateNotes";
 import ManageNotes from "../pages/Dashboard/Guest/ManageNotes";
 import UpdateItem from "../pages/Dashboard/Guest/UpdateItem";
 import StudyMaterials from "../pages/Dashboard/Guest/StudyMaterials";
-import TutorRoute from "./TutorRoute";
+import SellerRoute from "./SellerRoute";
 import CreateStudySession from "../pages/Dashboard/Seller/CreateProduct";
 import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
-import AllSession from "../pages/Home/Session/AllSession";
 import ViewAllSession from "../pages/Dashboard/Seller/ViewAllSession";
-import UpdateSession from "../pages/Home/Session/UpdateSession";
 import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ViewAllSessionByAdmin";
 import RejectDetails from "../pages/Dashboard/Seller/RejectDetails";
 import UploadMaterials from "../pages/Dashboard/Seller/UploadMaterials";
@@ -33,6 +30,9 @@ import ViewBookedMaterials from "../pages/Dashboard/Guest/ViewBookedMaterials";
 import AdminRoute from "./AdminRoute";
 import Statistics from "../components/Statistics/Statistics";
 import Campaign from "../pages/Home/Campaign/Campaign";
+import SessionDetails from "../pages/Home/PopularProduct/SessionDetails";
+import AllSession from "../pages/Home/PopularProduct/AllSession";
+import UpdateSession from "../pages/Home/PopularProduct/UpdateSession";
 
 export const router = createBrowserRouter([
   {
@@ -241,14 +241,14 @@ export const router = createBrowserRouter([
 
 
 
-      //TUTOR ROUTE
+      //SELLER ROUTE
       {
         path: "createProduct",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <CreateStudySession></CreateStudySession>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -256,9 +256,9 @@ export const router = createBrowserRouter([
         path: "viewStudySession",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <ViewAllSession></ViewAllSession>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -266,9 +266,9 @@ export const router = createBrowserRouter([
         path: "viewStudySession/update/:id",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <UpdateSession></UpdateSession>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
@@ -278,9 +278,9 @@ export const router = createBrowserRouter([
         path: "viewStudySession/rejectDetails/:id",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <RejectDetails></RejectDetails>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
@@ -291,9 +291,9 @@ export const router = createBrowserRouter([
         path: "uploadMaterials",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <UploadMaterials></UploadMaterials>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -301,9 +301,9 @@ export const router = createBrowserRouter([
         path: "uploadMaterials/uploadDetails/:id",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <UploadMaterialForm></UploadMaterialForm>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
@@ -313,9 +313,9 @@ export const router = createBrowserRouter([
         path: "viewMaterials",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <ViewMaterials></ViewMaterials>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -324,9 +324,9 @@ export const router = createBrowserRouter([
         path: "viewMaterials/updateMaterials/:id",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <UpdateMaterials></UpdateMaterials>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>

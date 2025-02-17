@@ -3,16 +3,16 @@ import { Navigate } from 'react-router-dom'
 import LoadingSpinner from '../components/Shared/LoadingSpinner';
 import useRole from '../hooks/useRole';
 
-const TutorRoute = ({ children }) => {
+const SellerRoute = ({ children }) => {
   const [role, isLoading] = useRole()
 
   if (isLoading) return <LoadingSpinner />
-  if (role === 'tutor') return children
+  if (role === 'seller') return children
   return <Navigate to='/dashboard' />
 };
 
-export default TutorRoute;
+export default SellerRoute;
 
-TutorRoute.propTypes = {
+SellerRoute.propTypes = {
   children: PropTypes.element,
 }

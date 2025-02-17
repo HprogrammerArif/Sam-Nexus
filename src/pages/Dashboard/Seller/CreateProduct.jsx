@@ -86,6 +86,7 @@ const CreateProduct = () => {
           status: "pending",
           seller,
           date: new Date(),
+          purchase_count: 0
         };
         console.log(newProduct);
 

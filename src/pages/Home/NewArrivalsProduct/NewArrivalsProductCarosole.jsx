@@ -12,6 +12,9 @@ import "./styles.css";
 // import required modules
 import Slide from "./NewArrivalsSlide";
 import { useRef } from "react";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import { useQuery } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
 
 export default function NewArrivalsProductCarosole() {
   const progressCircle = useRef(null);
@@ -20,6 +23,23 @@ export default function NewArrivalsProductCarosole() {
     progressCircle.current.style.setProperty("--progress", 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
+
+
+  const {
+    data: products = [],
+    isLoading,
+    //refetch,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/new-arivals-products`);
+      return data;
+    },
+  });
+  //console.log(products);
+
+  if (isLoading) return <LoadingSpinner />;
+
 
   return (
     <>
@@ -60,21 +80,23 @@ export default function NewArrivalsProductCarosole() {
           },
         }}
       >
-        <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/0Q8fjMF/photo-1597400473366-371a80b251eb-q-80-w-1530-auto-format-fit-crop-ixlib-rb-4-0.jpg"
-            }
-            text="Achieve Your Goals "
-            des="Elev exclusive resources to fast-track your success. Join us now and start achieving your goals!"
-          ></Slide>
-        </SwiperSlide>
-        <SwiperSlide>
+        {products.map((product, index) => (
+    <SwiperSlide key={index}>
+      <Slide
+        image={product?.image_url}
+        title={product?.title}
+        discountPrice={product?.discount}
+        price={product?.productPrice}
+      />
+    </SwiperSlide>
+  ))}
+
+        {/* <SwiperSlide>
           <Slide
             image={
               "https://i.ibb.co/p3yL5nh/photo-1432888498266-38ffec3eaf0a-q-80-w-1474-auto-format-fit-crop-ixlib-rb-4-0.png"
             }
-            text="Your Path Live Session"
+            title="Your Path Live Session"
             des="Expour skills. Embark on your path to success with us today!"
           ></Slide>
         </SwiperSlide>
@@ -83,7 +105,7 @@ export default function NewArrivalsProductCarosole() {
             image={
               "https://i.ibb.co/HxzYGZH/photo-1526378787940-576a539ba69d-q-80-w-1469-auto-format-fit-crop-ixlib-rb-4-0.jpg"
             }
-            text="Explore Our Best Course"
+            title="Explore Our Best Course"
             des="Unlock  and experience expert-led lessons,"
           ></Slide>
         </SwiperSlide>
@@ -92,7 +114,7 @@ export default function NewArrivalsProductCarosole() {
             image={
               "https://i.ibb.co/p3yL5nh/photo-1432888498266-38ffec3eaf0a-q-80-w-1474-auto-format-fit-crop-ixlib-rb-4-0.png"
             }
-            text="Your Path to in Live Session"
+            title="Your Path to in Live Session"
             des="Experienc your skills. Embark on your path to success with us today!"
           ></Slide>
         </SwiperSlide>
@@ -101,7 +123,7 @@ export default function NewArrivalsProductCarosole() {
             image={
               "https://i.ibb.co/0Q8fjMF/photo-1597400473366-371a80b251eb-q-80-w-1530-auto-format-fit-crop-ixlib-rb-4-0.jpg"
             }
-            text="Achieve ctive Learning Awaits"
+            title="Achieve ctive Learning Awaits"
             des="Elevatand start achieving your goals!"
           ></Slide>
         </SwiperSlide>
@@ -110,7 +132,7 @@ export default function NewArrivalsProductCarosole() {
             image={
               "https://i.ibb.co/HxzYGZH/photo-1526378787940-576a539ba69d-q-80-w-1469-auto-format-fit-crop-ixlib-rb-4-0.jpg"
             }
-            text="Explore Our Best Course"
+            title="Explore Our Best Course"
             des="Unlock your potential with our top-rated course designed to pr expert-led lessons,"
           ></Slide>
         </SwiperSlide>
@@ -119,7 +141,7 @@ export default function NewArrivalsProductCarosole() {
             image={
               "https://i.ibb.co/0Q8fjMF/photo-1597400473366-371a80b251eb-q-80-w-1530-auto-format-fit-crop-ixlib-rb-4-0.jpg"
             }
-            text="Achieve Your Goals || Interactive Learning Awaits"
+            title="Achieve Your Goals || Interactive Learning Awaits"
             des="Elevate your skJoin us now and start achieving your goals!"
           ></Slide>
         </SwiperSlide>
@@ -129,10 +151,10 @@ export default function NewArrivalsProductCarosole() {
             image={
               "https://i.ibb.co/HxzYGZH/photo-1526378787940-576a539ba69d-q-80-w-1469-auto-format-fit-crop-ixlib-rb-4-0.jpg"
             }
-            text="Explore Our Best Course"
+            title="Explore Our Best Course"
             des="Unlockwith the skills and knowledge needed to excel. Join now and experience expert-led lessons,"
           ></Slide>
-        </SwiperSlide>
+        </SwiperSlide> */}
         
         <div className="autoplay-progress" slot="container">
           <svg viewBox="0 0 28 28" ref={progressCircle}>
