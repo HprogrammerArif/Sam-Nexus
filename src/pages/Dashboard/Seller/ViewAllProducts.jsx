@@ -6,44 +6,23 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { FaAddressBook } from "react-icons/fa";
 
-const ViewAllSession = () => {
+const ViewAllProducts = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  //const [session, setSession] = useState([]);
   const queryClient = useQueryClient();
 
-  // useEffect(() => {
-  //   getData();
-  // }, [user]);
-
-  // const getData = async () => {
-  //   const { data } = await axiosSecure(`/sessions/${user?.email}`);
-  //   setSession(data);
-  // };
-
   const {
-    data: session = [],
+    data: products = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["session"],
+    queryKey: ["seller-products", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/sessions/${user?.email}`);
+      const { data } = await axiosSecure(`/seller-products/${user?.email}`);
       return data;
     },
   });
-  console.log(session);
-
-  // const {
-  //   data: rejectFeedback = [],
-  // } = useQuery({
-  //   queryKey: ["rejectFeedback", id],
-  //   queryFn: async () => {
-  //     const { data } = await axiosSecure.get(`/rejectFeedback/${id}`);
-  //     return data;
-  //   },
-  // });
-  // console.log(rejectFeedback);
+  console.log(products);
 
   const handleDelete = async (id) => {
     try {
@@ -52,7 +31,7 @@ const ViewAllSession = () => {
       toast.success("Delete Successful");
 
       //refresh ui
-      getData();
+      refetch();
     } catch (err) {
       console.log(err.message);
       toast.error(err.message);
@@ -85,7 +64,7 @@ const ViewAllSession = () => {
 
   if (isLoading) return <LoadingSpinner />;
 
-  console.log(session);
+  console.log(products);
   return (
     <section className="container px-4 mx-auto">
       <div className="flex items-center gap-x-3">
@@ -94,7 +73,7 @@ const ViewAllSession = () => {
         </h2>
 
         <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ">
-          {session.length} Session
+          {products.length} Session
         </span>
       </div>
 
@@ -162,7 +141,7 @@ const ViewAllSession = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
-                  {session.map((job) => (
+                  {products.map((job) => (
                     <tr key={job._id}>
                       <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                         {job.title.substring(0, 16)}...
@@ -310,4 +289,4 @@ const ViewAllSession = () => {
   );
 };
 
-export default ViewAllSession;
+export default ViewAllProducts;

@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import Carousel from './Slider/Carousel'
 import Rooms from './PopularProduct/PopularProduct'
-import Tutor from './Tutor/Tutor'
 import Policy from './Policy/Policy'
 import Banner from './Banner/Banner'
 import FeatureProductCarousel from './FeatureProduct/FeatureProductCarousel'

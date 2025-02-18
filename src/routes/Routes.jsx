@@ -17,7 +17,6 @@ import SellerRoute from "./SellerRoute";
 import CreateStudySession from "../pages/Dashboard/Seller/CreateProduct";
 import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
-import ViewAllSession from "../pages/Dashboard/Seller/ViewAllSession";
 import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ViewAllSessionByAdmin";
 import RejectDetails from "../pages/Dashboard/Seller/RejectDetails";
 import UploadMaterials from "../pages/Dashboard/Seller/UploadMaterials";
@@ -33,6 +32,8 @@ import Campaign from "../pages/Home/Campaign/Campaign";
 import SessionDetails from "../pages/Home/PopularProduct/SessionDetails";
 import AllSession from "../pages/Home/PopularProduct/AllSession";
 import UpdateSession from "../pages/Home/PopularProduct/UpdateSession";
+import Shop from "../pages/Home/Shop/Shop";
+import ViewAllProducts from "../pages/Dashboard/Seller/ViewAllProducts";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: "/campaign",
         element: <Campaign/>,
+      },
+      {
+        path: "/shop",
+        element: <Shop/>,
       },
       {
         path: "/session/:id",
@@ -253,11 +258,11 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "viewStudySession",
+        path: "viewAllProducts",
         element: (
           <PrivateRoute>
             <SellerRoute>
-              <ViewAllSession></ViewAllSession>
+              <ViewAllProducts/>
             </SellerRoute>
           </PrivateRoute>
         ),

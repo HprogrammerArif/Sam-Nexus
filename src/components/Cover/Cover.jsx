@@ -9,12 +9,12 @@ const Cover = ({ img, title, subTitle }) => {
       bgImageAlt="the dog"
       strength={-200}
     >
-      <div className="hero min-h-[600px]">
+      <div className="hero lg:min-h-[400px]">
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold uppercase">{title}</h1>
-            <p className="mb-5">{subTitle}.</p>
+            <h1 className="mb-5 text-lg md:text-xl lg:text-4xl font-bold uppercase">{title}</h1>
+            <p className="mb-3">{subTitle}.</p>
           </div>
         </div>
       </div>

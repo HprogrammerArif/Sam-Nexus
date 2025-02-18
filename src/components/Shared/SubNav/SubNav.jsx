@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const SubNav = () => {
   return (
-    <div className="container mx-auto">
+    <div className="">
       <nav className="bg-green-700 shadow dark:bg-gray-800">
         <div className="container px-6 py-2 mx-auto  md:flex justify-between items-center">
           {/* Logo */}
