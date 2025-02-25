@@ -23,10 +23,11 @@ const ViewAllProducts = () => {
     },
   });
   console.log(products);
+  
 
   const handleDelete = async (id) => {
     try {
-      const { data } = await axiosSecure.delete(`/session/${id}`);
+      const { data } = await axiosSecure.delete(`/seller-product/${id}`);
       console.log(data);
       toast.success("Delete Successful");
 
@@ -97,7 +98,7 @@ const ViewAllProducts = () => {
                       scope="col"
                       className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
                     >
-                      <span>End Deadline</span>
+                      <span>Image</span>
                     </th>
 
                     <th
@@ -143,14 +144,12 @@ const ViewAllProducts = () => {
                 <tbody className="bg-white divide-y divide-gray-200 ">
                   {products.map((job) => (
                     <tr key={job._id}>
-                      <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                      <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap font-semibold">
                         {job.title.substring(0, 16)}...
                       </td>
 
-                      <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                        {new Date(
-                          job.registration_end_date
-                        ).toLocaleDateString()}
+                      <td className="px-2 py-2 text-sm text-gray-500  whitespace-nowrap max-h-20 max-w-20">
+                        <img src={job.image_url} alt="image" />
                       </td>
 
                       <td
@@ -161,7 +160,7 @@ const ViewAllProducts = () => {
                       </td>
 
                       <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                        ${job.registration_fee}
+                        ${job.productPrice}
                       </td>
 
                       <td className="px-4 py-4 text-sm whitespace-nowrap">

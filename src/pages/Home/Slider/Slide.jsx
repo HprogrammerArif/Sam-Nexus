@@ -1,25 +1,25 @@
 import { Link } from "react-router-dom";
 
-const Slide = ({ image, text, des }) => {
+const Slide = ({ image, title, description, toLink }) => {
   return (
     <div
-      className="w-full bg-center object-cover bg-cover h-[32rem]"
+      className="w-full bg-center object-cover  bg-cover h-[32rem]"
       style={{
         backgroundImage: `url(${image})`,
       }}
     >
       <div className="flex items-center justify-center w-full h-full bg-gray-900/70">
         <div className="text-center">
-          <h1 className="text-3xl mb-2 font-semibold text-white lg:text-4xl">
-            {text}
+          <h1 className="text-xl md:text-3xl mb-2 font-semibold text-white lg:text-4xl">
+            {title}
           </h1>
-          <p className=" text-white max-w-[800px] mb-3">{des}</p>
+          <p className=" text-white text-xs md:text-base max-w-[800px] mb-3">{description}</p>
           <br />
           <Link
-            //to="/all-foods"
-            className="w-full px-5 py-4 mt-4 text-md font-medium text-white capitalize bg-gradient-to-r from-red-900 to-violet-900 rounded-md lg:w-auto border border-green-800"
+            to={toLink}
+            className="w-full px-4 py-3 lg:px-5 lg:py-4 mt-4 text-sm lg:text-md font-medium text-white capitalize bg-gradient-to-r from-red-900 to-violet-900 rounded-md lg:w-auto border border-green-800"
           >
-            Discover More Optunity
+            Discover More
           </Link>
         </div>
       </div>

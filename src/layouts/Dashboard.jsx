@@ -1,10 +1,14 @@
 import {
+  FaAdversal,
   FaCalendar,
   FaChartLine,
+  FaDollarSign,
   FaEye,
   FaHeadSideCoughSlash,
   FaHome,
   FaList,
+  FaMoneyBill,
+  FaMoneyCheck,
   FaNotesMedical,
   FaRegBookmark,
   
@@ -79,7 +83,7 @@ const Dashboard = () => {
                  
 
                     <li>
-                      <NavLink to="/dashboard/viewSession">
+                      <NavLink to="/dashboard/manageCategory">
                         <FaList /> Manage Category
                       </NavLink>
                     </li>
@@ -101,7 +105,7 @@ const Dashboard = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/dashboard/manage-users">
+                      <NavLink to="/dashboard/manage-advertise">
                         <FaUsers /> Manage Advertise
                       </NavLink>
                     </li>
@@ -163,24 +167,13 @@ const Dashboard = () => {
                     </li>
 
                     <li>
-                      <NavLink to="/dashboard/uploadMaterials">
-                        <FaUpload /> Upload Materials
-                      </NavLink>
-                    </li>
-
-                    <li>
-                      <NavLink to="/dashboard/viewMaterials">
-                        <FaEye /> View all Materials
+                      <NavLink to="/dashboard/paymentHistory">
+                        <FaDollarSign /> Payment History
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/dashboard/viewMaterials">
-                        <FaEye /> Payment History
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/dashboard/viewMaterials">
-                        <FaEye /> Ask Advertisement
+                      <NavLink to="/dashboard/advertisement">
+                        <FaAdversal /> Ask Advertisement
                       </NavLink>
                     </li>
                   </>

@@ -7,9 +7,9 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { Fragment } from "react";
-import UpdateSessionForm from "./UpdateSessionForm";
+import UpdateAdvertiseForm from "./UpdateAdvertiseForm";
 
-const UpdateSessionModal = ({
+const UpdateAdvertiseModal = ({
   setIsEditModalOpen,
   isOpen,
   job,
@@ -57,12 +57,12 @@ const UpdateSessionModal = ({
                 </DialogTitle>
                 <div className="mt-2 w-full">
                   {/* Update room form */}
-                  <UpdateSessionForm
+                  <UpdateAdvertiseForm
                     job={job}
                     handleStatus={handleStatus}
                     setIsEditModalOpen={setIsEditModalOpen}
                     refetch={refetch}
-                  ></UpdateSessionForm>
+                  ></UpdateAdvertiseForm>
                 </div>
                 <hr className="" />
                 <div className="mt-2 ">
@@ -83,9 +83,9 @@ const UpdateSessionModal = ({
   );
 };
 
-UpdateSessionModal.propTypes = {
+UpdateAdvertiseModal.propTypes = {
   setIsEditModalOpen: PropTypes.func,
   isOpen: PropTypes.bool,
 };
 
-export default UpdateSessionModal;
+export default UpdateAdvertiseModal;

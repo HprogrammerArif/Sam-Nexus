@@ -1,16 +1,17 @@
-import toast from "react-hot-toast";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useState } from "react";
-import UpdateSessionModal from "./UpdateSessionModal";
+import toast from "react-hot-toast";
+import LoadingSpinner from "../../../../components/Shared/LoadingSpinner";
+import { FaEdit, FaPlusCircle, FaTrash } from "react-icons/fa";
+import AddAdvertiseModal from "./AddAdvertiseModal";
 import { Link } from "react-router-dom";
-import RejectSessionModal from "./RejectSessionModal";
 
-const ViewAllSessionByAdmin = () => {
+const AskAdvertise = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   //for update modal
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
 
@@ -19,17 +20,17 @@ const ViewAllSessionByAdmin = () => {
   const [rejectJob, setRejectedJob] = useState(null);
 
   const {
-    data: session = [],
+    data: advertise = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["all-session"],
+    queryKey: ["all-advertise-data"],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/all-session`);
+      const { data } = await axiosSecure(`/all-advertise-data`);
       return data;
     },
   });
-  console.log(session);
+  console.log(advertise);
 
 
   const { mutateAsync } = useMutation({
@@ -49,14 +50,12 @@ const ViewAllSessionByAdmin = () => {
     },
   });
 
-
   // handleStatus
   const handleStatus = async (id, prevStatus, status) => {
     console.log(id, prevStatus, status);
     if (prevStatus === status) return console.log("Sry vai.. hobena");
     await mutateAsync({ id, status });
   };
-
 
   // Function to open modal and set the selected job and update it
   const openEditModal = (job) => {
@@ -85,16 +84,36 @@ const ViewAllSessionByAdmin = () => {
     }
   };
 
+  // Function to open modal for category!
+  const openCategoryModal = () => {
+    //setCategory(job);
+    setIsCategoryModalOpen(!false);
+  };
 
   if (isLoading) return <LoadingSpinner />;
 
   return (
     <section className="container px-4 mx-auto">
+      <div className="mb-4 lg:mb-8 flex justify-start items-center gap-3">
+        {/* Accept Button: In Progress */}
+        <p className="text-2xl">Add Product For AD</p>
+        <button
+          //onClick={() => setIsEditModalOpen(true)}
+          onClick={() => openCategoryModal()}
+          // onClick={() =>
+          //   handleStatus(job._id, job.status, "Approved")
+          // }
+          //disabled={job.status !== "pending"}
+          className="disabled:cursor-not-allowed transition-colors duration-200   hover:text-red-500 focus:outline-none "
+        >
+          <FaPlusCircle className="w-12 h-12 border" />
+        </button>
+      </div>
       <div className="flex items-center gap-x-3">
-        <h2 className="text-lg font-medium text-gray-800 ">View All Session</h2>
+        <h2 className="text-lg font-medium text-gray-800 ">Total Product for AD</h2>
 
         <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ">
-          {session.length} Session
+          {advertise.length} Product
         </span>
       </div>
 
@@ -110,7 +129,7 @@ const ViewAllSessionByAdmin = () => {
                       className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500"
                     >
                       <div className="flex items-center gap-x-3">
-                        <span>Title</span>
+                        <span>Title/Category</span>
                       </div>
                     </th>
 
@@ -118,7 +137,7 @@ const ViewAllSessionByAdmin = () => {
                       scope="col"
                       className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
                     >
-                      <span>Email</span>
+                      <span>Image</span>
                     </th>
 
                     <th
@@ -136,18 +155,13 @@ const ViewAllSessionByAdmin = () => {
                     >
                       Price
                     </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
-                    >
-                      Status
-                    </th>
+                   
 
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
                     >
-                      Approved <br /> & Reject
+                      Status
                     </th>
                     <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                       Edit
@@ -155,61 +169,35 @@ const ViewAllSessionByAdmin = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
-                  {session
-                    ?.filter((job) => job.status !== "Rejected")
-                    .map((job) => (
+                  {
+                    // ?.filter((job) => job.status !== "Rejected")
+                    advertise?.map((job) => (
                       <tr key={job._id}>
                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                          {job.title.substring(0, 16)}...
+                          {job.title}
                         </td>
 
                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                          {job.tutor_email}
+                          <img src={job.image_url} alt="" className="w-12" />
                         </td>
 
                         <td
                           title={job.description}
                           className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap"
                         >
-                          {job.description.substring(0, 8)}...
+                          {job.description.substring(0, 16)}...
                         </td>
 
                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                           ${job.registration_fee}
                         </td>
 
-                        <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          <div
-                            className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 ${
-                              job.status === "Pending" &&
-                              "bg-yellow-100/60 text-yellow-500"
-                            } ${
-                              job.status === "pending" &&
-                              "bg-blue-100/60 text-blue-500"
-                            } ${
-                              job.status === "Approved" &&
-                              "bg-emerald-100/60 text-emerald-500"
-                            } ${
-                              job.status === "Rejected" &&
-                              "bg-red-100/60 text-red-500"
-                            } `}
-                          >
-                            <span
-                              className={`h-1.5 w-1.5 rounded-full ${
-                                job.status === "Pending" && "bg-yellow-500"
-                              } ${job.status === "pending" && "bg-blue-500"} ${
-                                job.status === "Approved" && "bg-green-500"
-                              } ${job.status === "Rejected" && "bg-red-500"}  `}
-                            ></span>
-                            <h2 className="text-sm font-normal ">
-                              {job.status}
-                            </h2>
-                          </div>
-                        </td>
+                        
 
-                        <td className="px-4 py-4 text-sm whitespace-nowrap">
+                        <td className="px-4 py-4 text-sm whitespace-nowrap cursor-pointer">
                           <div className="flex items-center gap-x-6">
-                            {/* Accept Button: In Progress */}
+                           
+                            {/* Status bts: In Progress */}
                             <button
                               //onClick={() => setIsEditModalOpen(true)}
                               onClick={() => openEditModal(job)}
@@ -235,39 +223,11 @@ const ViewAllSessionByAdmin = () => {
                               </svg>
                             </button>
 
-
-                            
-                            {/* Reject Button */}
-                            <button
-                            onClick={() => openRejectModal(job)}
-                              // onClick={() =>
-                              //   handleStatus(job._id, job.status, "Rejected")
-                              // }
-                              disabled={job.status !== "pending"}
-                              className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-5 h-5"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"
-                                />
-                              </svg>
-                            </button>
+                          
                           </div>
                         </td>
 
-
-
-
-
+                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                         {job.status === "Approved" ? (
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="flex items-center gap-x-6">
@@ -295,47 +255,43 @@ const ViewAllSessionByAdmin = () => {
                                 to={`update/${job._id}`}
                                 className="text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none"
                               >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth="1.5"
-                                  stroke="currentColor"
-                                  className="w-5 h-5"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                  />
-                                </svg>
+                                <FaTrash/>
                               </Link>
                             </div>
                           </td>
                         ) : (
-                          ""
+                          <FaEdit/>
                         )}
+                        </td>
+                       
                       </tr>
                     ))}
                 </tbody>
 
+                {/* Add Category Modal */}
+                <AddAdvertiseModal
+                  setIsCategoryModalOpen={setIsCategoryModalOpen}
+                  isCategoryModalOpen={isCategoryModalOpen}
+                  refetch={refetch}
+                ></AddAdvertiseModal>
+
                 {/* Update Modal */}
-                <UpdateSessionModal
+                {/* <UpdateSessionModal
                   isOpen={isEditModalOpen}
                   setIsEditModalOpen={setIsEditModalOpen}
                   job={selectedJob}
                   refetch={refetch}
                   handleStatus={handleStatus}
-                ></UpdateSessionModal>
+                ></UpdateSessionModal> */}
 
                 {/* Reject Modal */}
-                <RejectSessionModal
+                {/* <RejectSessionModal
                   isOpen={isRejectModalOpen}
                   setIsRejectModalOpen={setIsRejectModalOpen}
                   job={rejectJob}
                   refetch={refetch}
                   handleStatus={handleStatus}
-                ></RejectSessionModal>
+                ></RejectSessionModal> */}
               </table>
             </div>
           </div>
@@ -345,4 +301,4 @@ const ViewAllSessionByAdmin = () => {
   );
 };
 
-export default ViewAllSessionByAdmin;
+export default AskAdvertise;

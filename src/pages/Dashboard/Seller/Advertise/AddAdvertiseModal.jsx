@@ -7,23 +7,22 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { Fragment } from "react";
-import UpdateSessionForm from "./UpdateSessionForm";
+import AddCategoryForm from "../../Admin/AddCategoryForm";
+import AddAdvertiseForm from "./AddAdvertiseForm";
 
-const UpdateSessionModal = ({
-  setIsEditModalOpen,
-  isOpen,
-  job,
-  refetch,
-  handleStatus,
+const AddAdvertiseModal = ({
+  setIsCategoryModalOpen,
+  isCategoryModalOpen,
+  refetch
 }) => {
-  console.log(job);
+  //console.log(job);
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={isCategoryModalOpen} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-10"
-        onClose={() => setIsEditModalOpen(true)}
+        onClose={() => setIsCategoryModalOpen(true)}
       >
         <TransitionChild
           as={Fragment}
@@ -38,7 +37,7 @@ const UpdateSessionModal = ({
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
             <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
@@ -53,23 +52,23 @@ const UpdateSessionModal = ({
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Update Advertise Status
+                  Add Advertise Product
                 </DialogTitle>
                 <div className="mt-2 w-full">
                   {/* Update room form */}
-                  <UpdateSessionForm
-                    job={job}
-                    handleStatus={handleStatus}
-                    setIsEditModalOpen={setIsEditModalOpen}
+                  <AddAdvertiseForm
+                    //job={job}
+                    //handleStatus={handleStatus}
+                    setIsCategoryModalOpen={setIsCategoryModalOpen}
                     refetch={refetch}
-                  ></UpdateSessionForm>
+                  ></AddAdvertiseForm>
                 </div>
                 <hr className="" />
                 <div className="mt-2 ">
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                    onClick={() => setIsEditModalOpen(false)}
+                    onClick={() => setIsCategoryModalOpen(false)}
                   >
                     Cancel
                   </button>
@@ -83,9 +82,9 @@ const UpdateSessionModal = ({
   );
 };
 
-UpdateSessionModal.propTypes = {
+AddAdvertiseModal.propTypes = {
   setIsEditModalOpen: PropTypes.func,
   isOpen: PropTypes.bool,
 };
 
-export default UpdateSessionModal;
+export default AddAdvertiseModal;

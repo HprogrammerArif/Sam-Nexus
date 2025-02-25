@@ -68,10 +68,10 @@ const Navbar = () => {
         <NavLink to="/contact">Contact</NavLink>
       </li> */}
       <Link className="mr-3" to="/shop">
-              <button className="self-center px-3 py-1.5 font-normal rounded bg-purple-800 text-gray-100">
-                Shop
-              </button>
-            </Link>
+        <button className="self-center px-3 py-1.5 font-normal rounded bg-purple-800 text-gray-100">
+          Shop
+        </button>
+      </Link>
     </>
   );
 
@@ -102,11 +102,12 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu z-50 menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {links}
             </ul>
           </div>
+
           <a
             rel="noopener noreferrer"
             href="/"
@@ -128,9 +129,6 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
           <div className="text-center flex ">
-            
-            
-
             {user ? (
               <>
                 {/* <button
@@ -236,11 +234,14 @@ const Navbar = () => {
             </label> */}
 
             <ul className="flex justify-center items-center">
-              <NavLink to={"/wishlist"} className="max-lg:py-2 px-4 cursor-pointer">
+              <NavLink
+                to={"/wishlist"}
+                className="max-lg:py-2 px-2 md:px-3 lg:px-4 cursor-pointer"
+              >
                 <span className="relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 inline"
+                    className="w-4 h-4 lg:w-6 lg:h-6 inline"
                     viewBox="0 0 512 512"
                   >
                     <path
@@ -249,17 +250,17 @@ const Navbar = () => {
                     ></path>
                   </svg>
 
-                  <span className="absolute left-auto -ml-1 -top-2 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
+                  <span className="absolute left-auto -ml-1 -top-2 rounded-full bg-red-500 px-1 py-0 text-[10px] lg:text-xs text-white">
                     3
                   </span>
                 </span>
               </NavLink>
-              <NavLink className="max-lg:py-2 px-4 cursor-pointer">
-                
+
+              <NavLink className="max-lg:py-2 px-2 md:px-3 lg:px-4 cursor-pointer">
                 <span className="relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 inline"
+                    className="w-4 h-4 lg:w-6 lg:h-6 inline"
                     viewBox="0 0 512 512"
                   >
                     <path
@@ -267,7 +268,7 @@ const Navbar = () => {
                       data-original="#000000"
                     ></path>
                   </svg>
-                  <span className="absolute left-auto -ml-1 -top-2 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
+                  <span className="absolute left-auto -ml-1 -top-2 rounded-full bg-red-500 px-1 py-0 text-[10px] lg:text-xs text-white">
                     3
                   </span>
                 </span>

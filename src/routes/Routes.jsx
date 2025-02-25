@@ -17,7 +17,7 @@ import SellerRoute from "./SellerRoute";
 import CreateStudySession from "../pages/Dashboard/Seller/CreateProduct";
 import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
-import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ViewAllSessionByAdmin";
+import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ManageCategory";
 import RejectDetails from "../pages/Dashboard/Seller/RejectDetails";
 import UploadMaterials from "../pages/Dashboard/Seller/UploadMaterials";
 import UploadMaterialForm from "../pages/Dashboard/Seller/UploadMaterialForm";
@@ -34,6 +34,14 @@ import AllSession from "../pages/Home/PopularProduct/AllSession";
 import UpdateSession from "../pages/Home/PopularProduct/UpdateSession";
 import Shop from "../pages/Home/Shop/Shop";
 import ViewAllProducts from "../pages/Dashboard/Seller/ViewAllProducts";
+import UpdatesProduct from "../pages/Dashboard/Seller/UpdatesProduct";
+import ManageCategory from "../pages/Dashboard/Admin/ManageCategory";
+import Goods from "../pages/Home/CategoryProduct/Goods";
+import AskAdvertise from "../pages/Dashboard/Seller/Advertise/AskAdvertise";
+import UpdateCategoryDetails from "../pages/Dashboard/Admin/UpdateCategoryDetails";
+import ManageAdvertise from "../pages/Dashboard/Admin/ManageAdvertise/ManageAdvertise";
+import UpdateAdvertiseProduct from "../pages/Dashboard/Admin/ManageAdvertise/UpdateAdvertiseProduct";
+import Books from "../pages/Home/Books/Books";
 
 export const router = createBrowserRouter([
   {
@@ -47,11 +55,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/campaign",
-        element: <Campaign/>,
+        element: <Campaign />,
+      },
+      {
+        path: "/books",
+        element: <Books />,
+      },
+      {
+        path: "/product-category/:category",
+        element: <Goods/>,
       },
       {
         path: "/shop",
-        element: <Shop/>,
+        element: <Shop />,
       },
       {
         path: "/session/:id",
@@ -73,7 +89,7 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
-      
+
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
     ],
@@ -114,21 +130,21 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "viewSession",
+        path: "manageCategory",
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <ViewAllSessionByAdmin />
+              <ManageCategory/>
             </AdminRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: "viewSession/update/:id",
+        path: "manageCategory/update/:id",
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <UpdateSession></UpdateSession>
+              <UpdateCategoryDetails/>
             </AdminRoute>
           </PrivateRoute>
         ),
@@ -168,13 +184,34 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "manage-advertise",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageAdvertise></ManageAdvertise>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-advertise/update/:id",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <UpdateAdvertiseProduct/>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/session/${params.id}`),
+      },
 
       //STUDENT ROUTE
       {
         path: "myBooking",
         element: (
           <PrivateRoute>
-            
             <MyBookings />
           </PrivateRoute>
         ),
@@ -244,8 +281,6 @@ export const router = createBrowserRouter([
         ),
       },
 
-
-
       //SELLER ROUTE
       {
         path: "createProduct",
@@ -262,22 +297,30 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SellerRoute>
-              <ViewAllProducts/>
+              <ViewAllProducts />
             </SellerRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: "viewStudySession/update/:id",
+        path: "advertisement",
         element: (
           <PrivateRoute>
             <SellerRoute>
-              <UpdateSession></UpdateSession>
+              <AskAdvertise/>
             </SellerRoute>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/session/${params.id}`),
+      },
+      {
+        path: "viewAllProducts/update/:id",
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <UpdatesProduct />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewStudySession/rejectDetails/:id",
