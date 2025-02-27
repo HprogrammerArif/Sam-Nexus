@@ -19,9 +19,8 @@ const BestOfWeek = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-      <div className="bg-gray-50 py-24 sm:py-32">
+      <div className="bg-gray-50 py-16 md:py-20 mt-4">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-         
           <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">
             PRODUCT OF THE WEEK!
           </p>
@@ -33,6 +32,7 @@ const BestOfWeek = () => {
               .map((product, index) => (
                 <>
                   <div key={index} className="relative lg:row-span-2">
+                    <NavLink to={`/products/${product?._id}`}>
                     <div className="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
                     <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                       <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -55,6 +55,9 @@ const BestOfWeek = () => {
                       </div>
                     </div>
                     <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-l-[2rem]"></div>
+                  
+                  
+                    </NavLink>
                   </div>
                 </>
               ))}

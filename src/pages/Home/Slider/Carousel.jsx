@@ -93,7 +93,7 @@ export default function Carousel() {
               image={
                 data?.image_url  }
               title={data?.title}
-              description={data?.descriptiona}
+              description={data?.description}
               toLink={`/campaign`}
             ></Slide>
           </SwiperSlide>

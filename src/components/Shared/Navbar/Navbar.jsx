@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import avatarImg from "../../../assets/images/placeholder.jpg";
@@ -8,32 +7,37 @@ import avatarImg from "../../../assets/images/placeholder.jpg";
 import useAuth from "../../../hooks/useAuth";
 import Container from "../Container";
 import { FcSettings } from "react-icons/fc";
+import useCart from "../../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [cart] = useCart();
+  console.log(cart);
 
-  const [theme, setTheme] = useState("light");
-  // const { loading } = useContext(AuthContex);
+  // const [theme, setTheme] = useState("light");
+  // // const { loading } = useContext(AuthContex);
 
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    document.querySelector("html").setAttribute("data-theme", localTheme);
-  }, [theme]);
+  // useEffect(() => {
+  //   localStorage.setItem("theme", theme);
+  //   const localTheme = localStorage.getItem("theme");
+  //   document.querySelector("html").setAttribute("data-theme", localTheme);
+  // }, [theme]);
 
-  // if (loading) {
-  //   return <span className="loading loading-bars loading-lg"></span>
-  // }
+  // // if (loading) {
+  // //   return <span className="loading loading-bars loading-lg"></span>
+  // // }
 
-  const handleToggle = (e) => {
-    if (e.target.checked) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
+  // // const handleToggle = (e) => {
+  // //   if (e.target.checked) {
+  // //     setTheme("dark");
+  // //   } else {
+  // //     setTheme("light");
+  // //   }
+  // // };
 
-  console.log(theme);
+  //console.log(theme);
+
+
 
   const handleLogOut = () => {
     logOut()
@@ -74,11 +78,15 @@ const Navbar = () => {
       </Link>
     </>
   );
+  
 
   return (
     <Container>
-      <div className="navbar bg-base-100 shadow-sm ">
+    <div className="navbar bg-base-100 shadow-sm ">
+        
+        
         <div className="navbar-start">
+         
           <div className="dropdown">
             <div
               tabIndex={0}
@@ -124,6 +132,7 @@ const Navbar = () => {
             </div>
           </a>
         </div>
+
         <div className="navbar-end  text-center">
           <div className="hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -234,6 +243,7 @@ const Navbar = () => {
             </label> */}
 
             <ul className="flex justify-center items-center">
+             
               <NavLink
                 to={"/wishlist"}
                 className="max-lg:py-2 px-2 md:px-3 lg:px-4 cursor-pointer"
@@ -256,7 +266,8 @@ const Navbar = () => {
                 </span>
               </NavLink>
 
-              <NavLink className="max-lg:py-2 px-2 md:px-3 lg:px-4 cursor-pointer">
+
+              <NavLink to="/cart" className="max-lg:py-2 px-2 md:px-3 lg:px-4 cursor-pointer">
                 <span className="relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -269,7 +280,7 @@ const Navbar = () => {
                     ></path>
                   </svg>
                   <span className="absolute left-auto -ml-1 -top-2 rounded-full bg-red-500 px-1 py-0 text-[10px] lg:text-xs text-white">
-                    3
+                    {cart?.length}
                   </span>
                 </span>
               </NavLink>

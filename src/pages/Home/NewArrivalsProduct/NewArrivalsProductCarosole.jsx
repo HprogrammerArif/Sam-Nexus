@@ -10,11 +10,14 @@ import "swiper/css/navigation";
 import "./styles.css";
 
 // import required modules
-import Slide from "./NewArrivalsSlide";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import PopularProductCard from "../PopularProduct/PopularProductCard";
+import useAuth from "../../../hooks/useAuth";
+import useRole from "../../../hooks/useRole";
+import toast from "react-hot-toast";
 
 export default function NewArrivalsProductCarosole() {
   const progressCircle = useRef(null);
@@ -23,12 +26,16 @@ export default function NewArrivalsProductCarosole() {
     progressCircle.current.style.setProperty("--progress", 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
-
+  //const [selectedProductId, setSelectedProductId] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const [role] = useRole();
+  const { user } = useAuth();
+  //const { id } = useParams();
 
   const {
     data: products = [],
     isLoading,
-    //refetch,
+    refetch,
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -36,15 +43,60 @@ export default function NewArrivalsProductCarosole() {
       return data;
     },
   });
-  //console.log(products);
 
-  if (isLoading) return <LoadingSpinner />;
+  const handleSubmit = async (event, _id) => {
+    console.log(_id);
+    event.preventDefault();
+    //setSelectedProductId(_id);
 
+    if (role === "seller" || role === "admin") {
+      return toast.error(`Action Not Allowed!! You are a ${role}`);
+    }
+    setProcessing(true);
+
+    const { data: singleProduct = {} } = await axiosSecure.get(
+      `/singleProduct/${_id}`
+    );
+    console.log(singleProduct);
+
+    //1. create payment info obj
+    const paymentInfo = {
+      ...singleProduct,
+      price: singleProduct?.productPrice,
+      user: {
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+      },
+      productId: singleProduct?._id,
+      transactionId: null,
+      date: new Date(),
+    };
+    delete paymentInfo._id;
+    console.log(paymentInfo);
+
+    try {
+      //2. save payment info in booking collection(db)
+      const { data } = await axiosSecure.post("/carts", paymentInfo);
+      console.log(data);
+
+      //update ui
+      refetch();
+      toast.success("Product Added Sucessfully To Cart!!");
+      //navigate("/dashboard/myBooking");
+      setProcessing(false);
+    } catch (err) {
+      console.log(err);
+    }
+    setProcessing(false);
+  };
+
+  if (isLoading || processing) return <LoadingSpinner />;
 
   return (
     <>
       <h3 className="font-bold lg:text-3xl  border-b flex justify-center">
-      NEW ARRIVALS
+        NEW ARRIVALS
       </h3>
       <Swiper
         slidesPerView={4}
@@ -68,7 +120,7 @@ export default function NewArrivalsProductCarosole() {
             slidesPerView: 2,
             spaceBetween: 10,
           },
-          
+
           // when window width is >= 768px
           768: {
             slidesPerView: 3,
@@ -81,81 +133,11 @@ export default function NewArrivalsProductCarosole() {
         }}
       >
         {products.map((product, index) => (
-    <SwiperSlide key={index}>
-      <Slide
-        image={product?.image_url}
-        title={product?.title}
-        discountPrice={product?.discount}
-        price={product?.productPrice}
-      />
-    </SwiperSlide>
-  ))}
+          <SwiperSlide key={index}>
+            <PopularProductCard product={product} handleSubmit={handleSubmit} />
+          </SwiperSlide>
+        ))}
 
-        {/* <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/p3yL5nh/photo-1432888498266-38ffec3eaf0a-q-80-w-1474-auto-format-fit-crop-ixlib-rb-4-0.png"
-            }
-            title="Your Path Live Session"
-            des="Expour skills. Embark on your path to success with us today!"
-          ></Slide>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/HxzYGZH/photo-1526378787940-576a539ba69d-q-80-w-1469-auto-format-fit-crop-ixlib-rb-4-0.jpg"
-            }
-            title="Explore Our Best Course"
-            des="Unlock  and experience expert-led lessons,"
-          ></Slide>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/p3yL5nh/photo-1432888498266-38ffec3eaf0a-q-80-w-1474-auto-format-fit-crop-ixlib-rb-4-0.png"
-            }
-            title="Your Path to in Live Session"
-            des="Experienc your skills. Embark on your path to success with us today!"
-          ></Slide>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/0Q8fjMF/photo-1597400473366-371a80b251eb-q-80-w-1530-auto-format-fit-crop-ixlib-rb-4-0.jpg"
-            }
-            title="Achieve ctive Learning Awaits"
-            des="Elevatand start achieving your goals!"
-          ></Slide>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/HxzYGZH/photo-1526378787940-576a539ba69d-q-80-w-1469-auto-format-fit-crop-ixlib-rb-4-0.jpg"
-            }
-            title="Explore Our Best Course"
-            des="Unlock your potential with our top-rated course designed to pr expert-led lessons,"
-          ></Slide>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/0Q8fjMF/photo-1597400473366-371a80b251eb-q-80-w-1530-auto-format-fit-crop-ixlib-rb-4-0.jpg"
-            }
-            title="Achieve Your Goals || Interactive Learning Awaits"
-            des="Elevate your skJoin us now and start achieving your goals!"
-          ></Slide>
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <Slide
-            image={
-              "https://i.ibb.co/HxzYGZH/photo-1526378787940-576a539ba69d-q-80-w-1469-auto-format-fit-crop-ixlib-rb-4-0.jpg"
-            }
-            title="Explore Our Best Course"
-            des="Unlockwith the skills and knowledge needed to excel. Join now and experience expert-led lessons,"
-          ></Slide>
-        </SwiperSlide> */}
-        
         <div className="autoplay-progress" slot="container">
           <svg viewBox="0 0 28 28" ref={progressCircle}>
             <circle cx="24" cy="14" r="10"></circle>

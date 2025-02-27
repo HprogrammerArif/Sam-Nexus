@@ -29,7 +29,7 @@ import ViewBookedMaterials from "../pages/Dashboard/Guest/ViewBookedMaterials";
 import AdminRoute from "./AdminRoute";
 import Statistics from "../components/Statistics/Statistics";
 import Campaign from "../pages/Home/Campaign/Campaign";
-import SessionDetails from "../pages/Home/PopularProduct/SessionDetails";
+import SessionDetails from "../pages/Home/Common/ProductDetails";
 import AllSession from "../pages/Home/PopularProduct/AllSession";
 import UpdateSession from "../pages/Home/PopularProduct/UpdateSession";
 import Shop from "../pages/Home/Shop/Shop";
@@ -42,6 +42,8 @@ import UpdateCategoryDetails from "../pages/Dashboard/Admin/UpdateCategoryDetail
 import ManageAdvertise from "../pages/Dashboard/Admin/ManageAdvertise/ManageAdvertise";
 import UpdateAdvertiseProduct from "../pages/Dashboard/Admin/ManageAdvertise/UpdateAdvertiseProduct";
 import Books from "../pages/Home/Books/Books";
+import ShoppingCart from "../pages/Cart/ShoppingCart/ShoppingCart";
+import ProductDetails from "../pages/Home/Common/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/products/:id",
+        element: (
+          <PrivateRoute>
+            <ProductDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/campaign",
         element: <Campaign />,
       },
@@ -62,20 +72,16 @@ export const router = createBrowserRouter([
         element: <Books />,
       },
       {
+        path: "/cart",
+        element: <ShoppingCart />,
+      },
+      {
         path: "/product-category/:category",
         element: <Goods/>,
       },
       {
         path: "/shop",
         element: <Shop />,
-      },
-      {
-        path: "/session/:id",
-        element: (
-          <PrivateRoute>
-            <SessionDetails />
-          </PrivateRoute>
-        ),
       },
       {
         path: "/all-session",

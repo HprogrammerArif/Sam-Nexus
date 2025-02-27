@@ -1,11 +1,14 @@
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import Container from "../../../components/Shared/Container";
 import ProductIntro from "../PopularProduct/ProductIntro";
-import ShopCard from "./ShopCard";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Cover from "../../../components/Cover/Cover";
+import PopularProductCard from "../PopularProduct/PopularProductCard";
+import toast from "react-hot-toast";
+import useRole from "../../../hooks/useRole";
+import useAuth from "../../../hooks/useAuth";
 
 const Shop = () => {
   const axiosSecure = useAxiosSecure();
@@ -16,6 +19,9 @@ const Shop = () => {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [searchText, setSearchText] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [role] = useRole();
+  const { user } = useAuth()
 
   const {
     data: allProducts = [],
@@ -69,7 +75,58 @@ const Shop = () => {
 
   console.log(search);
 
-  if (isLoading) return <LoadingSpinner />;
+  
+
+  
+  const handleSubmit = async (event, _id) => {
+    console.log(_id);
+    event.preventDefault();
+    //setSelectedProductId(_id);
+
+    if (role === "seller" || role === "admin") {
+      return toast.error(`Action Not Allowed!! You are a ${role}`);
+    }
+    setProcessing(true);
+
+    const { data: singleProduct = {} } = await axiosSecure.get(
+      `/singleProduct/${_id}`
+    );
+    console.log(singleProduct);
+
+    //1. create payment info obj
+    const paymentInfo = {
+      ...singleProduct,
+      price: singleProduct?.productPrice,
+      user: {
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+      },
+      productId: singleProduct?._id,
+      transactionId: null,
+      date: new Date(),
+    };
+    delete paymentInfo._id;
+    console.log(paymentInfo);
+
+    try {
+      //2. save payment info in booking collection(db)
+      const { data } = await axiosSecure.post("/carts", paymentInfo);
+      console.log(data);
+
+      //update ui
+      refetch();
+      toast.success("Product Added Sucessfully To Cart!!");
+      //navigate("/dashboard/myBooking");
+      setProcessing(false);
+    } catch (err) {
+      console.log(err);
+    }
+    setProcessing(false);
+  };
+
+
+  if (isLoading || processing) return <LoadingSpinner />;
   refetch();
 
   return (
@@ -89,6 +146,7 @@ const Shop = () => {
       ></ProductIntro>
       <div className="container px-4 mx-auto min-h-[calc(100vh-306px)] flex flex-col justify-between">
         <div>
+
           <div className="flex flex-col md:flex-row justify-center items-center gap-8 ">
             <div>
               <select
@@ -150,7 +208,7 @@ const Shop = () => {
             {allProducts
               //.filter((job) => job.status === "Approved")
               .map((product) => (
-                <ShopCard key={product._id} product={product} />
+                <PopularProductCard key={product._id} product={product} handleSubmit={handleSubmit} />
               ))}
           </div>
         </div>

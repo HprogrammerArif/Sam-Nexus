@@ -27,6 +27,7 @@ const Home = () => {
       <BestOfWeek/>
       {/* <Tutor></Tutor> */}
       <NewArrivalsProductCarosole/>
+      
       <Partner/>
     </div>
   )
