@@ -1,5 +1,5 @@
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import useRole from "../../../hooks/useRole";
@@ -21,7 +21,6 @@ const ShoppingCart = () => {
   const [role] = useRole();
   const { user } = useAuth();
   console.log(role);
-
 
   const handleDeleteItem = async (itemId) => {
     console.log(itemId);
@@ -84,19 +83,17 @@ const ShoppingCart = () => {
     setProcessing(false);
   };
 
-
   const totalPrice = cart?.reduce(
     (total, item) => total + item.productPrice * item.quantity,
     0
   );
   const OnlineFee = 20;
-  
+
   const discountPrice = cart?.reduce(
     (total, item) => total + item.discount * item.quantity,
     0
   );
 
-  
   if (isLoading || processing) return <LoadingSpinner />;
 
   return (
@@ -131,8 +128,6 @@ const ShoppingCart = () => {
                   />
                   <div className="flex flex-col justify-between w-full pb-4">
                     <div className="grid grid-cols-6 w-full pb-2 space-x-2">
-
-
                       <div className="space-y-1 col-span-4 ml-2">
                         <h3 className="text-base leading-snug max-w-80 ">
                           {item?.title.slice(0, 80)}
@@ -153,13 +148,14 @@ const ShoppingCart = () => {
                         </div>
                       </div>
 
-
-
                       {/* Increase and decrease quantity!! */}
                       <div className="col-span-1 flex items-center text-sm space-x-2">
                         <button
                           onClick={() =>
-                            handleUpdateQuantity(item?.productId, item.quantity - 1)
+                            handleUpdateQuantity(
+                              item?.productId,
+                              item.quantity - 1
+                            )
                           }
                           className="text-gray-600"
                         >
@@ -175,15 +171,16 @@ const ShoppingCart = () => {
 
                         <button
                           onClick={() =>
-                            handleUpdateQuantity(item?.productId, item.quantity + 1)
+                            handleUpdateQuantity(
+                              item?.productId,
+                              item.quantity + 1
+                            )
                           }
                           className="text-gray-600"
                         >
                           <FaPlus />
                         </button>
                       </div>
-
-
 
                       <div className="text-right col-span-1">
                         <p className="text-base font-semibold">
@@ -193,7 +190,6 @@ const ShoppingCart = () => {
                           {item?.discount ? item?.discount : 0} TK
                         </p>
                       </div>
-                      
                     </div>
 
                     <div className="flex text-sm divide-x ml-2">
@@ -252,20 +248,26 @@ const ShoppingCart = () => {
           </div>
           <div className="flex justify-between py-3">
             <h2 className="text-xl ">Total:</h2>
-            <p className="text-lg font-semibold">{totalPrice+OnlineFee} TK</p>
+            <p className="text-lg font-semibold">{totalPrice + OnlineFee} TK</p>
           </div>
           <div className="flex justify-between py-3">
             <h2 className="text-xl ">Payable Total: </h2>
-            <p className="text-lg font-semibold">{totalPrice+OnlineFee} TK</p>
+            <p className="text-lg font-semibold">{totalPrice + OnlineFee} TK</p>
           </div>
           <br /> <br />
-          <div className="flex flex-col gap-4">
-            <button className="bg-purple-500 py-3 text-slate-50 text-base">
+          <div className="flex flex-col text-center gap-4">
+            <NavLink
+              to={"/shipping"}
+              className="bg-purple-500 py-3 text-slate-50 text-base"
+            >
               Order As A Gifts
-            </button>
-            <button className="bg-blue-500  py-3  text-slate-50 text-base">
+            </NavLink>
+            <NavLink
+              to={"/shipping"}
+              className="bg-blue-500  py-3  text-slate-50 text-base"
+            >
               Proceed To Checkout
-            </button>
+            </NavLink>
           </div>
         </div>
       </div>

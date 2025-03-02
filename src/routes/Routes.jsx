@@ -44,6 +44,7 @@ import UpdateAdvertiseProduct from "../pages/Dashboard/Admin/ManageAdvertise/Upd
 import Books from "../pages/Home/Books/Books";
 import ShoppingCart from "../pages/Cart/ShoppingCart/ShoppingCart";
 import ProductDetails from "../pages/Home/Common/ProductDetails";
+import ShippingCart from "../pages/Cart/ShoppingCart/ShippingCart";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: <ShoppingCart />,
+      },
+      {
+        path: "/shipping",
+        element: <ShippingCart />,
       },
       {
         path: "/product-category/:category",
