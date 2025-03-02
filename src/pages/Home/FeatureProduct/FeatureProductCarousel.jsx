@@ -73,6 +73,7 @@ export default function App() {
       productId: singleProduct?._id,
       transactionId: null,
       date: new Date(),
+      quantity: 1,
     };
     delete paymentInfo._id;
     console.log(paymentInfo);

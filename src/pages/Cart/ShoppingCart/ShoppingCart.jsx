@@ -1,52 +1,27 @@
-import { FaMinus, FaPlug, FaPlus } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
+import { FaMinus, FaPlus } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import useRole from "../../../hooks/useRole";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useCart from "../../../hooks/useCart";
 
 const ShoppingCart = () => {
+  const [quantity, setQuantity] = useState(1);
+
   const [cart, refetch, isLoading] = useCart();
 
   const { id } = useParams();
   console.log(id);
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
-  // const location = useLocation();
   const [processing, setProcessing] = useState(false);
   //payment and booking releted
   const [role] = useRole();
-  const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
   console.log(role);
 
-  const handleModalOpen = () => {
-    if (role === "seller" || role === "admin") {
-      toast.error(`Action Not Allowed!! You are a ${role}`);
-    } else {
-      setIsOpen(true);
-    }
-  };
-
-  console.log(cart);
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  // const bookingInfo = {
-  //   ...singleProduct,
-  //   price: singleProduct?.productPrice,
-  //   user: {
-  //     name: user?.displayName,
-  //     email: user?.email,
-  //     image: user?.photoURL,
-  //   },
-  // };
 
   const handleDeleteItem = async (itemId) => {
     console.log(itemId);
@@ -60,6 +35,15 @@ const ShoppingCart = () => {
     }
   };
 
+  const handleUpdateQuantity = async (itemId, newQuantity) => {
+    try {
+      if (newQuantity < 1) return;
+      await axiosSecure.patch(`/carts/${itemId}`, { quantity: newQuantity });
+      refetch(); // Refresh cart data
+    } catch (error) {
+      toast.error("Failed to update quantity!");
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -92,7 +76,7 @@ const ShoppingCart = () => {
 
       //update ui
       refetch();
-      
+
       //navigate("/dashboard/myBooking");
     } catch (err) {
       console.log(err);
@@ -100,6 +84,19 @@ const ShoppingCart = () => {
     setProcessing(false);
   };
 
+
+  const totalPrice = cart?.reduce(
+    (total, item) => total + item.productPrice * item.quantity,
+    0
+  );
+  const OnlineFee = 20;
+  
+  const discountPrice = cart?.reduce(
+    (total, item) => total + item.discount * item.quantity,
+    0
+  );
+
+  
   if (isLoading || processing) return <LoadingSpinner />;
 
   return (
@@ -111,9 +108,9 @@ const ShoppingCart = () => {
             <div className="text-right flex gap-3 items-center">
               <h2 className="text-xl ">your total:</h2>
 
-              <p className="text-lg font-semibold">59.99€</p>
+              <p className="text-lg font-semibold">{totalPrice} TK</p>
               <p className="text-sm line-through text-red-600 dark:text-red-600">
-                75.50€
+                {discountPrice} Tk
               </p>
             </div>
           </div>
@@ -133,48 +130,77 @@ const ShoppingCart = () => {
                     alt="Polaroid camera"
                   />
                   <div className="flex flex-col justify-between w-full pb-4">
-                    <div className="flex justify-between w-full pb-2 space-x-2">
-                      <div className="space-y-1">
+                    <div className="grid grid-cols-6 w-full pb-2 space-x-2">
+
+
+                      <div className="space-y-1 col-span-4 ml-2">
                         <h3 className="text-base leading-snug max-w-80 ">
                           {item?.title.slice(0, 80)}
                         </h3>
                         <div className="flex justify-around max-w-80">
-                        <p className="text-sm dark:text-gray-600">Brand: <span className="font-semibold text-blue-500">{item?.brandName}</span></p>
-                        <p className="text-sm dark:text-gray-600">Category: <span className="font-semibold text-blue-500">{item?.category}</span></p>
+                          <p className="text-sm dark:text-gray-600">
+                            Brand:{" "}
+                            <span className="font-semibold text-blue-500">
+                              {item?.brandName}
+                            </span>
+                          </p>
+                          <p className="text-sm dark:text-gray-600">
+                            Category:{" "}
+                            <span className="font-semibold text-blue-500">
+                              {item?.category}
+                            </span>
+                          </p>
                         </div>
                       </div>
 
+
+
                       {/* Increase and decrease quantity!! */}
-                      <div className="flex items-center text-sm space-x-2">
-                        <button className="decrease-quantity text-gray-600">
-                          <i className="ion-ios-minus-empty">
-                            <FaPlus />
-                          </i>
+                      <div className="col-span-1 flex items-center text-sm space-x-2">
+                        <button
+                          onClick={() =>
+                            handleUpdateQuantity(item?.productId, item.quantity - 1)
+                          }
+                          className="text-gray-600"
+                        >
+                          <FaMinus />
                         </button>
+
                         <input
                           type="text"
                           className="mx-2 w-12 text-center border border-gray-300 rounded"
-                          //value="1"
-                          defaultValue={1}
+                          value={item.quantity}
+                          readOnly
                         />
-                        <button className="increase-quantity text-gray-600">
-                          <i className="ion-ios-plus-empty">
-                            <FaMinus />
-                          </i>
+
+                        <button
+                          onClick={() =>
+                            handleUpdateQuantity(item?.productId, item.quantity + 1)
+                          }
+                          className="text-gray-600"
+                        >
+                          <FaPlus />
                         </button>
                       </div>
 
-                      <div className="text-right ">
-                        <p className="text-base font-semibold">{item?.productPrice} TK</p>
+
+
+                      <div className="text-right col-span-1">
+                        <p className="text-base font-semibold">
+                          {item?.productPrice} TK
+                        </p>
                         <p className="text-sm line-through dark:text-gray-400">
-                        {item?.discount | 0} TK
+                          {item?.discount ? item?.discount : 0} TK
                         </p>
                       </div>
+                      
                     </div>
 
-                    <div className="flex text-sm divide-x">
+                    <div className="flex text-sm divide-x ml-2">
                       <button
-                      onClick={() => {handleDeleteItem(item?._id)}}
+                        onClick={() => {
+                          handleDeleteItem(item?._id);
+                        }}
                         type="button"
                         className="flex items-center px-2 py-1 pl-0 space-x-1"
                       >
@@ -218,19 +244,19 @@ const ShoppingCart = () => {
           <h1 className="text-3xl mb-6">Checkout Summary</h1>
           <div className="flex justify-between py-4">
             <h2 className="text-xl ">Subtotal:</h2>
-            <p className="text-lg font-semibold">10333 TK.</p>
+            <p className="text-lg font-semibold">{totalPrice} TK</p>
           </div>
           <div className="flex justify-between py-3">
             <h2 className="text-xl ">Online Fee:</h2>
-            <p className="text-lg font-semibold">173 TK.</p>
+            <p className="text-lg font-semibold">{OnlineFee} TK.</p>
           </div>
           <div className="flex justify-between py-3">
             <h2 className="text-xl ">Total:</h2>
-            <p className="text-lg font-semibold">10506 TK.</p>
+            <p className="text-lg font-semibold">{totalPrice+OnlineFee} TK</p>
           </div>
           <div className="flex justify-between py-3">
             <h2 className="text-xl ">Payable Total: </h2>
-            <p className="text-lg font-semibold">10506 TK.</p>
+            <p className="text-lg font-semibold">{totalPrice+OnlineFee} TK</p>
           </div>
           <br /> <br />
           <div className="flex flex-col gap-4">

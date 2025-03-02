@@ -71,8 +71,9 @@ export default function NewArrivalsProductCarosole() {
       productId: singleProduct?._id,
       transactionId: null,
       date: new Date(),
+      quantity: 1,
     };
-    delete paymentInfo._id;
+    //delete paymentInfo._id;
     console.log(paymentInfo);
 
     try {

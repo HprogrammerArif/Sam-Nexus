@@ -57,6 +57,7 @@ const PopularProduct = () => {
       productId: singleProduct?._id,
       transactionId: null,
       date: new Date(),
+      quantity: 1,
     };
     delete paymentInfo._id;
     console.log(paymentInfo);
@@ -73,6 +74,7 @@ const PopularProduct = () => {
       setProcessing(false);
     } catch (err) {
       console.log(err);
+      //toast.success(err);
     }
     setProcessing(false);
   };
