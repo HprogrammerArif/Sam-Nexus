@@ -1,8 +1,10 @@
 import useAuth from "../../../hooks/useAuth";
+import { FaBackward, FaCoins, FaFacebook, FaMinus, FaPaypal, FaPlus } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import useCart from "../../../hooks/useCart";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { LiaFacebook, LiaWhatsapp } from "react-icons/lia";
 
 const ShippingCart = () => {
   const { user } = useAuth();
@@ -222,10 +224,10 @@ const ShippingCart = () => {
                 {/* Description Field */}
                 <div>
                   <label className="text-gray-700" htmlFor="description">
-                    Description
+                    Details Location
                   </label>
                   <textarea
-                    placeholder="Write in details"
+                    placeholder="Dhaka, Nikunjo-2, Road No - 1"
                     name="description"
                     id="description"
                     rows="2"
@@ -237,20 +239,21 @@ const ShippingCart = () => {
                 <section className="">
                   {/* Return and Points */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-2 pt-6 ">
-                    <div className="px-4 py-2 bg-slate-200">
+                    <div className="px-4 py-2 bg-slate-200 flex gap-3 items-center">
+                      <FaBackward/>
                       <p>7 Days Happy Return</p>
                     </div>
-                    <div className="px-4 py-2 bg-slate-200">
+                    <div className="px-4 py-2 bg-slate-200 flex gap-3 items-center">
+                    <FaCoins/>
                       <p>Purchase and Earn Point</p>
                     </div>
                   </div>
 
                   {/* Return and Points */}
                   <div className="grid grid-cols-1 py-2 border-b">
-                    <div className="px-4 py-2 bg-slate-100">
-                      <p>
-                        Payment Method
-                        <span className="text-xs">
+                    <div className="px-4 py-2 bg-green-100">
+                      <p className="text-lg ">
+                        Payment Method       <span className="text-xs">
                           (Please select a payment method)
                         </span>
                       </p>
@@ -267,7 +270,7 @@ const ShippingCart = () => {
                       </span>
                     </div>
 
-                    <div className="px-4 py-3 bg-slate-100 flex gap-3">
+                    <div className="px-4 py-4 w-1/2 bg-green-100 flex gap-3">
                       <input
                         name="delivery"
                         id="delivery"
@@ -285,22 +288,46 @@ const ShippingCart = () => {
                         <h3 className="">Comming Soon....</h3>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-2  ">
-                        <div className="px-4 py-2 bg-slate-200">
+                        <div className="px-4 py-2 bg-slate-200 flex gap-3 items-center">
                           <p>Bikash</p>
+                          <FaPaypal/>
                         </div>
-                        <div className="px-4 py-2 bg-slate-200">
+                        <div className="px-4 py-2 bg-slate-200 flex gap-3 items-center">
                           <p>Nogod</p>
+                          <FaPaypal/>
                         </div>
-                        <div className="px-4 py-2 bg-slate-200">
-                          <p>Rocket</p>
+                        <div className="px-4 py-2 bg-slate-200 flex gap-3 items-center">
+                          <p>Rocket</p><FaPaypal/>
                         </div>
                       </div>
                     </div>
                   </div>
                 </section>
 
-                {/* Submit Button */}
-                <div className="flex justify-center w-full border">
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                 {/* Submit Button */}
+                 <div className="flex justify-center text-s w-full border items-center bg-green-100">
+                  <label htmlFor="">Chat Us</label>
+                   <a
+                    href="https://wa.me/8801630299065" // Corrected WhatsApp link
+                    className="relative text-gray-700 p-1 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <LiaWhatsapp className="w-7 h-7 lg:w-10 lg:h-10 bg-green-50 rounded-full p-0.5" />
+                  </a>
+
+                  <a
+                    href={`https://web.facebook.com/profile.php?id=61573231906192&rdid=wtjtWPXNvkscpz5Q&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F18VRPhsNjU%2F%3F_rdc%3D1%26_rdr#`}
+                    className="relative text-gray-700 justify-center items-center flex p-1 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
+                    
+                    target="_blank" rel="noopener noreferrer"
+                  >
+                    <LiaFacebook className="w-7 h-7 lg:w-10 lg:h-10 bg-green-50 rounded-full p-0.5" />
+                  </a>
+                </div>
+
+                <div className="flex justify-center w-full col-span-2  border">
                   <button
                     type="submit"
                     className="px-6 py-2 w-full text-white bg-blue-700 rounded-md hover:bg-gray-600 transition-colors"
@@ -308,7 +335,22 @@ const ShippingCart = () => {
                     Confirm Order
                   </button>
                 </div>
+               </div>
               </form>
+
+
+              
+  <a href="tel:01608414032" className="mt-4 bg-green-100 border px-4 py-3">
+    <button
+      className="px-6 py-4 text-slate-900 rounded-md "
+    >
+      Call Us
+    </button>
+  </a>
+
+
+
+
             </section>
           </div>
 
@@ -337,6 +379,7 @@ const ShippingCart = () => {
                   {totalPrice + OnlineFee} TK
                 </p>
               </div>
+              
             </div>
 
             {/* <div className="flex flex-col gap-4 mt-6">

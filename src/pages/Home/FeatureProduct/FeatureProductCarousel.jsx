@@ -74,6 +74,7 @@ export default function App() {
       transactionId: null,
       date: new Date(),
       quantity: 1,
+      status: true
     };
     delete paymentInfo._id;
     console.log(paymentInfo);
@@ -100,7 +101,7 @@ export default function App() {
 
   return (
     <>
-      <h3 className="font-bold lg:text-3xl mt-12 border-b flex justify-center">
+      <h3 className="font-bold text-xl md:text-2xl lg:text-3xl mb-8 mt-12 border-b flex justify-center">
         FEATURED PRODUCTS
       </h3>
       <Swiper

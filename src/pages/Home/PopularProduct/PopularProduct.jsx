@@ -58,6 +58,7 @@ const PopularProduct = () => {
       transactionId: null,
       date: new Date(),
       quantity: 1,
+      status: true
     };
     delete paymentInfo._id;
     console.log(paymentInfo);
@@ -93,7 +94,7 @@ const PopularProduct = () => {
       ></ProductIntro>
       {allPopularProducts && allPopularProducts.length > 0 ? (
         <>
-          <div className=" container mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10">
+          <div className=" container mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-10">
             {/* {allPopularProducts.filter(job => job.status ==='Approved').slice(0, 6).map((product) => ( */}
             {allPopularProducts.filter(job => job.status ==='pending').slice(0, 12).map((product) => (
               <PopularProductCard key={product._id} product={product} handleSubmit={handleSubmit} />

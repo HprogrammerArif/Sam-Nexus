@@ -105,8 +105,10 @@ const Shop = () => {
       productId: singleProduct?._id,
       transactionId: null,
       date: new Date(),
+      quantity: 1,
+      status: true
     };
-    delete paymentInfo._id;
+    //delete paymentInfo._id;
     console.log(paymentInfo);
 
     try {
@@ -204,7 +206,7 @@ const Shop = () => {
             </button>
           </div>
 
-          <div className="pt-16 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10">
+          <div className="pt-16 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-10">
             {allProducts
               //.filter((job) => job.status === "Approved")
               .map((product) => (

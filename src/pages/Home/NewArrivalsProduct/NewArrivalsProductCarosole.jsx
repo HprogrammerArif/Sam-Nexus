@@ -72,6 +72,7 @@ export default function NewArrivalsProductCarosole() {
       transactionId: null,
       date: new Date(),
       quantity: 1,
+      status: true
     };
     //delete paymentInfo._id;
     console.log(paymentInfo);
@@ -96,7 +97,7 @@ export default function NewArrivalsProductCarosole() {
 
   return (
     <>
-      <h3 className="font-bold lg:text-3xl  border-b flex justify-center">
+      <h3 className="font-bold text-xl md:text-2xl mb-6 border-b flex justify-center">
         NEW ARRIVALS
       </h3>
       <Swiper

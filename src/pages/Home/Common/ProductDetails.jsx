@@ -61,6 +61,8 @@ const ProductDetails = () => {
       email: user?.email,
       image: user?.photoURL,
     },
+      quantity: 1,
+      status: true
   };
 
   const handleSubmit = async (event) => {
@@ -77,7 +79,7 @@ const ProductDetails = () => {
       transactionId: null,
       date: new Date(),
     };
-    delete paymentInfo._id;
+    //delete paymentInfo._id;
     console.log(paymentInfo);
 
     try {

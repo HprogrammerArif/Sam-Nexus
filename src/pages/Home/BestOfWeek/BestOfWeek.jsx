@@ -21,7 +21,7 @@ const BestOfWeek = () => {
     <>
       <div className="bg-gray-50 py-16 md:py-20 mt-4">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-          <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">
+          <p className="mx-auto mt-2 max-w-lg text-center text-2xl md:text-3xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">
             PRODUCT OF THE WEEK!
           </p>
 
@@ -45,7 +45,7 @@ const BestOfWeek = () => {
                         </p>
                       </div>
                       <div className="@container relative min-h-[30rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
-                        <div className="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-gray-700 bg-gray-900 shadow-2xl">
+                        <div className="absolute  inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-gray-700 bg-gray-900 shadow-2xl">
                           <img
                             className="size-full object-cover object-top"
                             src={product?.image_url}

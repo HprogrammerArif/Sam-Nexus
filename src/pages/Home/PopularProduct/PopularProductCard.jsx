@@ -6,9 +6,9 @@ const PopularProductCard = ({ product, handleSubmit}) => {
   console.log(product);
   return (
     <>
-      <div className="max-w-xs rounded-md h-96 shadow-md  dark:bg-gray-50 dark:text-gray-800 flex items-center justify-center flex-col">
+      <div className="max-w-xs rounded-md max-h-96 shadow-md  dark:bg-gray-50 dark:text-gray-800 flex items-center justify-center flex-col">
         <NavLink to={`/products/${_id}`}>
-          <div className="border h-48 md:h-64 w-full object-cover  overflow-hidden p-2">
+          <div className="border h-28 md:h-64 w-full object-cover  overflow-hidden p-2">
             <img
               src={image_url}
               alt=""
@@ -16,9 +16,9 @@ const PopularProductCard = ({ product, handleSubmit}) => {
             />
           </div>
 
-          <div className="flex flex-col justify-center items-center p-2 space-y-3 w-full">
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold tracking-wide">
+          <div className="flex flex-col justify-center items-center md:p-2 md:space-y-3 w-full">
+            <div className="">
+              <h2 className=" text-sm md:text-lg font-semibold tracking-wide">
                 {title.length <= 25
                   ? title
                   : title.slice(0, 20) + "..." + title.slice(-5)}
@@ -28,7 +28,7 @@ const PopularProductCard = ({ product, handleSubmit}) => {
                   <span className="text-gray-500 line-through text-xs">
                     {discountPrice | 100} ৳
                   </span>
-                  <span className="text-red-500 font-semibold ml-2">
+                  <span className="text-red-500 font-semibold ml-2 text-sm md:text-base">
                     {productPrice} ৳
                   </span>
                 </>
@@ -38,7 +38,7 @@ const PopularProductCard = ({ product, handleSubmit}) => {
         </NavLink>
         <button
         onClick={(event) => handleSubmit(event, _id)} type="button"
-          className="flex items-center justify-center w-[60%]  py-1.5 font-semibold tracking-wide rounded-md bg-slate-200 hover:bg-green-600  hover:text-gray-50"
+          className="flex items-center justify-center w-full md:w-[60%]  py-1.5 px-2 font-semibold tracking-wide rounded-md bg-slate-200 hover:bg-green-600  hover:text-gray-50 text-sm md:text-base "
         >
           Add to Cart
         </button>

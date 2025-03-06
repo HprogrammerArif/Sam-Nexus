@@ -32,14 +32,15 @@ const SubNav = () => {
             >
               <LiaInstagram className="w-7 h-7 lg:w-10 lg:h-10 bg-green-50 rounded-full p-0.5"  />
             </NavLink>
-            <NavLink
-  to={`https://api.whatsapp.com/send?phone=01710280013`} // Universal WhatsApp Link
+            <a
+  href="https://wa.me/8801630299065" // Corrected WhatsApp link
   className="relative text-gray-700 p-1 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
-  target="_blank" 
+  target="_blank"
   rel="noopener noreferrer"
 >
   <LiaWhatsapp className="w-7 h-7 lg:w-10 lg:h-10 bg-green-50 rounded-full p-0.5" />
-</NavLink>
+</a>
+
 
 
             <NavLink
