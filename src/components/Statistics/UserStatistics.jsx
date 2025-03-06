@@ -8,13 +8,13 @@ import LoadingSpinner from "../Shared/LoadingSpinner";
 import { formatDistanceToNow } from "date-fns";
 import SalesLineChart from "../Charts/SalesLineChart";
 
-const StudentStatistics = () => {
+const UserStatistics = () => {
   // Fetch Admin Stat Data here
   const axiosSecure = useAxiosSecure();
   const { data: statData = {}, isLoading } = useQuery({
-    queryKey: ["statData"],
+    queryKey: ["user-statistics"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/student-stat");
+      const { data } = await axiosSecure.get("/user-statistics");
       return data;
     },
   });
@@ -38,7 +38,7 @@ const StudentStatistics = () => {
                 Total Spent
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                ${statData?.totalPrice}
+              <span>৳</span> {statData?.totalPrices}
               </h4>
             </div>
           </div>
@@ -52,10 +52,10 @@ const StudentStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Bookings
+                Total Orders
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-              {statData?.totalBookings}
+              {statData?.totalOrders}
               </h4>
             </div>
           </div>
@@ -69,11 +69,11 @@ const StudentStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Student Since...
+                User Since...
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
              
-              {statData?.StudentSince && formatDistanceToNow(statData?.StudentSince)}
+              {statData?.userSince && formatDistanceToNow(statData?.userSince)}
               </h4>
             </div>
           </div>
@@ -95,4 +95,4 @@ const StudentStatistics = () => {
   );
 };
 
-export default StudentStatistics;
+export default UserStatistics;

@@ -121,17 +121,17 @@ const Dashboard = () => {
                     </li>
 
                     <li>
-                      <NavLink to="/dashboard/myBooking">
-                        <FaRegBookmark /> My Booking
+                      <NavLink to="/dashboard/myOrders">
+                        <FaRegBookmark /> My Orders
                       </NavLink>
                     </li>
 
-                    <li>
-                      <NavLink to="/dashboard/createNotes">
-                        <FaNotesMedical /> Create Notes
+                     <li>
+                      <NavLink to="/dashboard/provideFeedback">
+                        <FaNotesMedical /> Give Suggession
                       </NavLink>
                     </li>
-
+{/*
                     <li>
                       <NavLink to="/dashboard/manageNotes">
                         <FaStickyNote /> Manage Notes
@@ -142,7 +142,7 @@ const Dashboard = () => {
                       <NavLink to="/dashboard/studyMaterials">
                         <FaHeadSideCoughSlash /> View Study Materials
                       </NavLink>
-                    </li>
+                    </li> */}
                   </>
                 )}
 

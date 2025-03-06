@@ -1,5 +1,5 @@
 import useAuth from "../../../hooks/useAuth";
-import { FaBackward, FaCoins, FaFacebook, FaMinus, FaPaypal, FaPlus } from "react-icons/fa";
+import { FaBackward, FaCoins, FaFacebook, FaMinus, FaPaypal, FaPlus, FaWhatsapp } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import useCart from "../../../hooks/useCart";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
@@ -15,6 +15,7 @@ const ShippingCart = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData.entries());
+    const userEmail =user?.email;
     console.log(formValues);
 
     const orderData = {
@@ -41,12 +42,24 @@ const ShippingCart = () => {
       console.log(data);
       toast.success(`Order Sucessfull!!`);
       refetch();
+     
+      await axiosSecure.patch(`/cart/update/${userEmail}`, { status: false });
 
-      navigate("/dashboard/myBooking");
+      navigate("/dashboard/myOrders");
     } catch (err) {
       console.log(err);
       toast.error("Failed to Order!");
     }
+
+
+    try {
+      
+      
+      refetch(); // Refresh cart data
+    } catch (error) {
+      toast.error("Failed to update status!");
+    }
+
     
   };
 
@@ -58,8 +71,8 @@ const ShippingCart = () => {
 
   return (
     <>
-      <div className="container mx-auto md:px-16 p-4">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
+      <div className="container mx-auto lg:px-16 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 lg:gap-12">
           {/* Upload Materials Form */}
           <div className="col-span-3 border flex justify-center items-center">
             <section className="w-full overflow-y-auto  p-6 bg-white rounded-md shadow-md divide-y">
@@ -207,7 +220,7 @@ const ShippingCart = () => {
                     <select
                       id="zone"
                       name="zone"
-                      required
+                
                       className="block w-full px-4 py-2 mt-1 text-gray-700 border border-gray-200 rounded-md focus:outline-none"
                     >
                       <option value="" disabled selected>
@@ -302,6 +315,40 @@ const ShippingCart = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Checkout Summary */}
+          <div className="col-span-2 border max-h-fit md:hidden  bg-slate-50 p-3 md:p-6 rounded-md shadow-md md:gap-3">
+            <h1 className=" text-xl md:text-3xl mb-6">Checkout Summary</h1>
+
+            <div className=" space-y-3 md:space-y-8">
+              <div className="flex justify-between">
+                <h2 className="text-md">Subtotal:</h2>
+                <p className="text-md font-semibold">{totalPrice} TK</p>
+              </div>
+              <div className="flex justify-between">
+                <h2 className="text-md">Online Fee:</h2>
+                <p className="text-md font-semibold">{OnlineFee} TK</p>
+              </div>
+              <div className="flex justify-between">
+                <h2 className="text-md">Total:</h2>
+                <p className="text-md font-semibold">
+                  {totalPrice + OnlineFee} TK
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <h2 className="text-md">Payable Total:</h2>
+                <p className="ttext-md font-semibold">
+                  {totalPrice + OnlineFee} TK
+                </p>
+              </div>
+              
+            </div>
+
+            
+          </div>
+
+
+
                 </section>
 
                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -330,7 +377,7 @@ const ShippingCart = () => {
                 <div className="flex justify-center w-full col-span-2  border">
                   <button
                     type="submit"
-                    className="px-6 py-2 w-full text-white bg-blue-700 rounded-md hover:bg-gray-600 transition-colors"
+                    className="px-6 py-3 w-full text-white bg-blue-700 rounded-md hover:bg-gray-600 transition-colors"
                   >
                     Confirm Order
                   </button>
@@ -340,11 +387,13 @@ const ShippingCart = () => {
 
 
               
-  <a href="tel:01608414032" className="mt-4 bg-green-100 border px-4 py-3">
+  <a href="tel:01608414032" className=" text-center bg-green-100  ">
     <button
-      className="px-6 py-4 text-slate-900 rounded-md "
+      className="px-6 py-1 gap-2 flex justify-center items-center bg-green-100 text-slate-900 rounded-md "
     >
       Call Us
+      
+    <FaWhatsapp/>
     </button>
   </a>
 
@@ -355,10 +404,10 @@ const ShippingCart = () => {
           </div>
 
           {/* Checkout Summary */}
-          <div className="col-span-2 border max-h-fit  bg-slate-50 md:p-6 rounded-md shadow-md gap-3">
-            <h1 className="text-3xl mb-6">Checkout Summary</h1>
+          <div className="col-span-2 border max-h-fit hidden md:block bg-slate-50 p-3 md:p-6 rounded-md shadow-md md:gap-3">
+            <h1 className=" text-xl md:text-3xl mb-6">Checkout Summary</h1>
 
-            <div className="space-y-8">
+            <div className=" space-y-3 md:space-y-8">
               <div className="flex justify-between">
                 <h2 className="text-xl">Subtotal:</h2>
                 <p className="text-lg font-semibold">{totalPrice} TK</p>
@@ -397,6 +446,7 @@ const ShippingCart = () => {
               </NavLink>
             </div> */}
           </div>
+
         </div>
       </div>
     </>

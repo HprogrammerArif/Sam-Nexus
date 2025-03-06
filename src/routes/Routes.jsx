@@ -6,13 +6,13 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Main from "../layouts/Main";
 import Dashboard from "../layouts/Dashboard";
-import UserHome from "../pages/Dashboard/Guest/UserHome";
-import MyBookings from "../pages/Dashboard/Guest/MyBookings";
-import BookingDetails from "../pages/Dashboard/Guest/BookingDetails";
-import CreateNotes from "../pages/Dashboard/Guest/CreateNotes";
-import ManageNotes from "../pages/Dashboard/Guest/ManageNotes";
-import UpdateItem from "../pages/Dashboard/Guest/UpdateItem";
-import StudyMaterials from "../pages/Dashboard/Guest/StudyMaterials";
+import UserHome from "../pages/Dashboard/User/UserHome";
+import MyBookings from "../pages/Dashboard/User/MyOrders";
+import BookingDetails from "../pages/Dashboard/User/BookingDetails";
+import CreateNotes from "../pages/Dashboard/User/ProvideFeedback";
+import ManageNotes from "../pages/Dashboard/User/ManageNotes";
+import UpdateItem from "../pages/Dashboard/User/UpdateItem";
+import StudyMaterials from "../pages/Dashboard/User/StudyMaterials";
 import SellerRoute from "./SellerRoute";
 import CreateStudySession from "../pages/Dashboard/Seller/CreateProduct";
 import Profile from "../pages/Dashboard/Common/Profile";
@@ -24,8 +24,8 @@ import UploadMaterialForm from "../pages/Dashboard/Seller/UploadMaterialForm";
 import ViewMaterials from "../pages/Dashboard/Seller/ViewMaterials";
 import UpdateMaterials from "../pages/Dashboard/Seller/UpdateMaterials";
 import ViewAllMaterials from "../pages/Dashboard/Admin/ViewAllMaterials";
-import BookingMaterials from "../pages/Dashboard/Guest/BookingMaterials";
-import ViewBookedMaterials from "../pages/Dashboard/Guest/ViewBookedMaterials";
+import BookingMaterials from "../pages/Dashboard/User/BookingMaterials";
+import ViewBookedMaterials from "../pages/Dashboard/User/ViewBookedMaterials";
 import AdminRoute from "./AdminRoute";
 import Statistics from "../components/Statistics/Statistics";
 import Campaign from "../pages/Home/Campaign/Campaign";
@@ -45,6 +45,8 @@ import Books from "../pages/Home/Books/Books";
 import ShoppingCart from "../pages/Cart/ShoppingCart/ShoppingCart";
 import ProductDetails from "../pages/Home/Common/ProductDetails";
 import ShippingCart from "../pages/Cart/ShoppingCart/ShippingCart";
+import MyOrders from "../pages/Dashboard/User/MyOrders";
+import ProvideFeedback from "../pages/Dashboard/User/ProvideFeedback";
 
 export const router = createBrowserRouter([
   {
@@ -220,10 +222,10 @@ export const router = createBrowserRouter([
 
       //STUDENT ROUTE
       {
-        path: "myBooking",
+        path: "myOrders",
         element: (
           <PrivateRoute>
-            <MyBookings />
+            <MyOrders />
           </PrivateRoute>
         ),
       },
@@ -258,10 +260,10 @@ export const router = createBrowserRouter([
           ),
       },
       {
-        path: "createNotes",
+        path: "provideFeedback",
         element: (
           <PrivateRoute>
-            <CreateNotes></CreateNotes>
+            <ProvideFeedback/>
           </PrivateRoute>
         ),
       },

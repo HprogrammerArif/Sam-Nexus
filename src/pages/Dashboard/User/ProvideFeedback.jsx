@@ -3,7 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 
-const CreateNotes = () => {
+const ProvideFeedback = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const handleNotes = (e) => {
@@ -20,7 +20,7 @@ const CreateNotes = () => {
     };
 
     axiosSecure
-      .post("/notes", noteItems)
+      .post("/user-feedback", noteItems)
       .then((res) => {
         console.log(res.data);
 
@@ -32,7 +32,7 @@ const CreateNotes = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate("/dashboard/manageNotes");
+          navigate("/dashboard/provideFeedback");
         }
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ const CreateNotes = () => {
         }).then((result) => {
           if (result.isConfirmed) {
             //send the user to login page
-            navigate("/dashboard/createNotes");
+            navigate("/dashboard/provideFeedback");
           }
         });
       });
@@ -59,7 +59,7 @@ const CreateNotes = () => {
       <div className="flex justify-center items-center min-h-[calc(100vh-306px)]">
         <section className=" p-2 md:p-6 mx-auto min-w-[500px] bg-white rounded-md shadow-md ">
           <h2 className="text-lg font-semibold text-gray-700 capitalize ">
-            Upload Materials
+          Provide Feedback & Suggessions
           </h2>
 
           <form onSubmit={handleNotes}>
@@ -142,4 +142,4 @@ const CreateNotes = () => {
   );
 };
 
-export default CreateNotes;
+export default ProvideFeedback;

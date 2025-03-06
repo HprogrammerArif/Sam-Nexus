@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useRole from "../../hooks/useRole";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import AdminStatistics from "./AdminStatistics";
-import StudentStatistics from "./StudentStatistics";
+import StudentStatistics from "./UserStatistics";
 import TutorStatistics from "./TutorStatistics";
 // import AdminStatistics2 from "../Hasan/AdminStatistics2";
 

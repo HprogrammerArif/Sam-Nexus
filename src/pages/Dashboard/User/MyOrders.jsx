@@ -5,29 +5,29 @@ import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import BookingDataRow from "../../../components/Dashboard/TableRows/BookingDataRow";
 
-const MyBookings = () => {
+const MyOrders = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
   //fetch bookings data
   const {
-    data: bookings = [],
+    data: orders = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["myBooking", user?.email],
+    queryKey: ["myOrders", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/myBooking/${user?.email}`);
+      const { data } = await axiosSecure.get(`/myOrders/${user?.email}`);
       return data;
     },
   });
-  console.log(bookings);
+  console.log(orders);
   if (isLoading) return <LoadingSpinner />;
 
   return (
     <>
       <Helmet>
-        <title>My Bookings</title>
+        <title>My Orders</title>
       </Helmet>
 
       <div className="container mx-auto px-4 sm:px-8">
@@ -47,13 +47,13 @@ const MyBookings = () => {
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Session Id
+                      Category
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Tutor Name
+                      Brand Name
                     </th>
                     <th
                       scope="col"
@@ -65,13 +65,13 @@ const MyBookings = () => {
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Class Start
+                      Color & Quantity
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Class End
+                      Status
                     </th>
                     <th
                       scope="col"
@@ -83,14 +83,17 @@ const MyBookings = () => {
                 </thead>
                 <tbody>
                   {/* Table Row Data */}
-                  {bookings.map((booking) => (
-                    <BookingDataRow
-                      key={booking._id}
-                      booking={booking}
-                      refetch={refetch}
-                      isLoading={isLoading}
-                    ></BookingDataRow>
-                  ))}
+{orders.map((order) => 
+  order?.cartItems?.map((cartItem) => (
+    <BookingDataRow
+      key={cartItem._id}
+      order={order}
+      orders={cartItem}
+      refetch={refetch}
+      isLoading={isLoading}
+    />
+  ))
+)}
                 </tbody>
               </table>
             </div>
@@ -101,4 +104,4 @@ const MyBookings = () => {
   );
 };
 
-export default MyBookings;
+export default MyOrders;
