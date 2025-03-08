@@ -8,13 +8,13 @@ import LoadingSpinner from "../Shared/LoadingSpinner";
 import { formatDistanceToNow } from "date-fns";
 import SalesLineChart from "../Charts/SalesLineChart";
 
-const TutorStatistics = () => {
+const SellerStatistics = () => {
   // Fetch Admin Stat Data here
   const axiosSecure = useAxiosSecure();
   const { data: statData = {}, isLoading } = useQuery({
     queryKey: ["statData"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/tutor-stat");
+      const { data } = await axiosSecure.get("/seller-statistics");
       return data;
     },
   });
@@ -37,7 +37,7 @@ const TutorStatistics = () => {
                 Total Sales
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                ${statData?.totalPrice}
+                😓{statData?.totalPrices}
               </h4>
             </div>
           </div>
@@ -59,22 +59,7 @@ const TutorStatistics = () => {
             </div>
           </div>
 
-          {/* Users Card */}
-          <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
-            <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
-            >
-              <FaDollarSign className="w-6 h-6 text-white" />
-            </div>
-            <div className="p-4 text-right">
-              <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Paid
-              </p>
-              <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-              {statData?.TutorSince && formatDistanceToNow(statData?.TutorSince)}
-              </h4>
-            </div>
-          </div>
+          
 
           {/* Total Bookings */}
           <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
@@ -104,7 +89,7 @@ const TutorStatistics = () => {
                 Total Products
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-              {statData?.totalSession}
+              {statData?.totalProducts}
               </h4>
             </div>
           </div>
@@ -118,10 +103,10 @@ const TutorStatistics = () => {
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Tutor Since...
+                Seller Since...
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-              {statData?.TutorSince && formatDistanceToNow(statData?.TutorSince)}
+              {statData?.sellerSince && formatDistanceToNow(statData?.sellerSince)}
               </h4>
             </div>
           </div>
@@ -143,4 +128,4 @@ const TutorStatistics = () => {
   );
 };
 
-export default TutorStatistics;
+export default SellerStatistics;

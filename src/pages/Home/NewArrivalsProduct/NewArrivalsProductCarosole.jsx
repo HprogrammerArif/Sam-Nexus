@@ -18,6 +18,7 @@ import PopularProductCard from "../PopularProduct/PopularProductCard";
 import useAuth from "../../../hooks/useAuth";
 import useRole from "../../../hooks/useRole";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function NewArrivalsProductCarosole() {
   const progressCircle = useRef(null);
@@ -31,6 +32,7 @@ export default function NewArrivalsProductCarosole() {
   const [role] = useRole();
   const { user } = useAuth();
   //const { id } = useParams();
+  const navigate = useNavigate()
 
   const {
     data: products = [],
@@ -51,6 +53,10 @@ export default function NewArrivalsProductCarosole() {
 
     if (role === "seller" || role === "admin") {
       return toast.error(`Action Not Allowed!! You are a ${role}`);
+    }
+
+    if (!user) {
+      return navigate("/login");
     }
     setProcessing(true);
 
@@ -106,12 +112,12 @@ export default function NewArrivalsProductCarosole() {
         centeredSlides={true}
         loop={true}
         autoplay={{
-          delay: 2500,
+          delay: 3500,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         navigation={true}
         modules={[Pagination, Autoplay, Navigation]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
@@ -120,17 +126,17 @@ export default function NewArrivalsProductCarosole() {
           // when window width is >= 640px
           125: {
             slidesPerView: 2,
-            spaceBetween: 10,
+            spaceBetween: 5,
           },
 
           // when window width is >= 768px
           768: {
             slidesPerView: 3,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
           1024: {
             slidesPerView: 4,
-            spaceBetween: 30,
+            spaceBetween: 10,
           },
         }}
       >

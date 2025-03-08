@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import Container from "../../../components/Shared/Container";
@@ -18,6 +18,7 @@ const PopularProduct = () => {
   const [processing, setProcessing] = useState(false);
   const [role] = useRole();
   const { user } = useAuth()
+  const navigate = useNavigate()
 
   const { data: allPopularProducts = [], isLoading, refetch } = useQuery({
     queryKey: ["all-popular-products"],
@@ -37,6 +38,10 @@ const PopularProduct = () => {
 
     if (role === "seller" || role === "admin") {
       return toast.error(`Action Not Allowed!! You are a ${role}`);
+    }
+
+    if (!user) {
+      return navigate("/login");
     }
     setProcessing(true);
 

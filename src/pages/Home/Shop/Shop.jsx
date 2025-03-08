@@ -9,6 +9,7 @@ import PopularProductCard from "../PopularProduct/PopularProductCard";
 import toast from "react-hot-toast";
 import useRole from "../../../hooks/useRole";
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,6 +23,7 @@ const Shop = () => {
   const [processing, setProcessing] = useState(false);
   const [role] = useRole();
   const { user } = useAuth()
+  const navigate = useNavigate()
 
   const {
     data: allProducts = [],
@@ -85,6 +87,10 @@ const Shop = () => {
 
     if (role === "seller" || role === "admin") {
       return toast.error(`Action Not Allowed!! You are a ${role}`);
+    }
+
+    if (!user) {
+      return navigate("/login");
     }
     setProcessing(true);
 

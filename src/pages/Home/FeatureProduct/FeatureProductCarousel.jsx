@@ -18,6 +18,7 @@ import PopularProductCard from "../PopularProduct/PopularProductCard";
 import useRole from "../../../hooks/useRole";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
   const progressCircle = useRef(null);
@@ -29,6 +30,7 @@ export default function App() {
   const [processing, setProcessing] = useState(false);
   const [role] = useRole();
   const { user } = useAuth()
+  const navigate = useNavigate()
 
   const {
     data: products = [],
@@ -54,6 +56,11 @@ export default function App() {
     if (role === "seller" || role === "admin") {
       return toast.error(`Action Not Allowed!! You are a ${role}`);
     }
+
+    if (!user) {
+      return navigate("/login");
+    }
+
     setProcessing(true);
 
     const { data: singleProduct = {} } = await axiosSecure.get(
@@ -110,12 +117,12 @@ export default function App() {
         centeredSlides={true}
         loop={true}
         autoplay={{
-          delay: 2500,
+          delay: 3500,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         navigation={true}
         modules={[Pagination, Autoplay, Navigation]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
@@ -124,17 +131,17 @@ export default function App() {
           // when window width is >= 640px
           125: {
             slidesPerView: 2,
-            spaceBetween: 10,
+            spaceBetween: 5,
           },
 
           // when window width is >= 768px
           768: {
             slidesPerView: 3,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
           1024: {
             slidesPerView: 4,
-            spaceBetween: 30,
+            spaceBetween: 10,
           },
         }}
       >

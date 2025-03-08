@@ -4,7 +4,7 @@ import useRole from "../../hooks/useRole";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import AdminStatistics from "./AdminStatistics";
 import StudentStatistics from "./UserStatistics";
-import TutorStatistics from "./TutorStatistics";
+import TutorStatistics from "./SellerStatistics";
 // import AdminStatistics2 from "../Hasan/AdminStatistics2";
 
 

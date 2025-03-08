@@ -3,7 +3,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import Container from "../../../components/Shared/Container";
 import ProductIntro from "../PopularProduct/ProductIntro";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Heading from "../../../components/Shared/Heading";
 import PopularProductCard from "../PopularProduct/PopularProductCard";
 import { useState } from "react";
@@ -16,6 +16,7 @@ const Goods = () => {
   const [role] = useRole();
   const { user } = useAuth()
   const { category } = useParams();
+  const navigate = useNavigate()
   console.log(category);
 
   //const axiosCommon = useAxiosCommon();
@@ -40,6 +41,11 @@ const Goods = () => {
     if (role === "seller" || role === "admin") {
       return toast.error(`Action Not Allowed!! You are a ${role}`);
     }
+
+    if (!user) {
+      return navigate("/login");
+    }
+    
     setProcessing(true);
 
     const { data: singleProduct = {} } = await axiosSecure.get(

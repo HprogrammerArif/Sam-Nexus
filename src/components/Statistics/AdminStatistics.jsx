@@ -40,9 +40,10 @@ const AdminStatistics = () => {
                 Total Revenue
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                ${statData?.totalPrice}
+                ${statData?.totalPrices}
               </h4>
             </div>
+           
           </div>
           {/* Users Card */}
           <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
@@ -56,7 +57,7 @@ const AdminStatistics = () => {
                 Total Users
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                {statData?.totalStudent}
+                {statData?.totalUsers}
               </h4>
             </div>
           </div>
@@ -72,7 +73,7 @@ const AdminStatistics = () => {
                 Total Ordered
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                {statData?.totalBookings}
+                {statData?.totalOrders}
               </h4>
             </div>
           </div>
@@ -89,43 +90,12 @@ const AdminStatistics = () => {
                 Total Products
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                {statData?.totalSession}
+                {statData?.totalProducts}
               </h4>
             </div>
           </div>
 
-          {/* Total Product */}
-          <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
-            <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-pink-600 to-pink-400 text-white shadow-pink-500/40`}
-            >
-              <FaDollarSign className="w-6 h-6 text-white" />
-            </div>
-            <div className="p-4 text-right">
-              <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Paid
-              </p>
-              <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                {statData?.totalSession}
-              </h4>
-            </div>
-          </div>
-          {/* Users Card */}
-          <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
-            <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
-            >
-              <FaMoneyBillAlt className="w-6 h-6 text-white" />
-            </div>
-            <div className="p-4 text-right">
-              <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Pending
-              </p>
-              <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                {statData?.totalStudent}
-              </h4>
-            </div>
-          </div>
+          
         </div>
 
         <div className="mb-4 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">

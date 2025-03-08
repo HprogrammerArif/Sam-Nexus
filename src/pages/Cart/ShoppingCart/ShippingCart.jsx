@@ -26,6 +26,16 @@ const ShippingCart = () => {
         email: user?.email,
         image: user?.photoURL,
       },
+      seller: cart?.[0]
+      ? {
+          name: cart[0]?.seller?.name,
+          email: cart[0]?.seller?.email,
+          image: cart[0]?.seller?.image,
+        }
+      : null,
+  
+
+
       cartItems: cart,
       status: "pending",
       transactionId: null,
