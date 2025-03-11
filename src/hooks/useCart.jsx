@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
 
@@ -14,6 +14,11 @@ const useCart = () => {
       const res = await axiosSecure.get(`/carts?email=${user.email}`);
       return res.data;
     },
+    
+      onSuccess: () => {
+        QueryClient.invalidateQueries(["cart", user?.email]); // Auto-refetch cart
+      },
+    
   });
   return [cart, refetch, isLoading];
 };

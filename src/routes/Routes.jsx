@@ -4,34 +4,49 @@ import Home from "../pages/Home/Home";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
-import SessionDetails from "../pages/Home/Session/SessionDetails";
 import Main from "../layouts/Main";
 import Dashboard from "../layouts/Dashboard";
-import UserHome from "../pages/Dashboard/Guest/UserHome";
-import MyBookings from "../pages/Dashboard/Guest/MyBookings";
-import BookingDetails from "../pages/Dashboard/Guest/BookingDetails";
-import CreateNotes from "../pages/Dashboard/Guest/CreateNotes";
-import ManageNotes from "../pages/Dashboard/Guest/ManageNotes";
-import UpdateItem from "../pages/Dashboard/Guest/UpdateItem";
-import StudyMaterials from "../pages/Dashboard/Guest/StudyMaterials";
-import TutorRoute from "./TutorRoute";
-import CreateStudySession from "../pages/Dashboard/Host/CreateStudySession";
+import UserHome from "../pages/Dashboard/User/UserHome";
+import MyBookings from "../pages/Dashboard/User/MyOrders";
+import BookingDetails from "../pages/Dashboard/User/BookingDetails";
+import CreateNotes from "../pages/Dashboard/User/ProvideFeedback";
+import ManageNotes from "../pages/Dashboard/User/ManageNotes";
+import UpdateItem from "../pages/Dashboard/User/UpdateItem";
+import StudyMaterials from "../pages/Dashboard/User/StudyMaterials";
+import SellerRoute from "./SellerRoute";
+import CreateStudySession from "../pages/Dashboard/Seller/CreateProduct";
 import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
-import AllSession from "../pages/Home/Session/AllSession";
-import ViewAllSession from "../pages/Dashboard/Host/ViewAllSession";
-import UpdateSession from "../pages/Home/Session/UpdateSession";
-import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ViewAllSessionByAdmin";
-import RejectDetails from "../pages/Dashboard/Host/RejectDetails";
-import UploadMaterials from "../pages/Dashboard/Host/UploadMaterials";
-import UploadMaterialForm from "../pages/Dashboard/Host/UploadMaterialForm";
-import ViewMaterials from "../pages/Dashboard/Host/ViewMaterials";
-import UpdateMaterials from "../pages/Dashboard/Host/UpdateMaterials";
+import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ManageCategory";
+import RejectDetails from "../pages/Dashboard/Seller/RejectDetails";
+import UploadMaterials from "../pages/Dashboard/Seller/UploadMaterials";
+import UploadMaterialForm from "../pages/Dashboard/Seller/UploadMaterialForm";
+import ViewMaterials from "../pages/Dashboard/Seller/ViewMaterials";
+import UpdateMaterials from "../pages/Dashboard/Seller/UpdateMaterials";
 import ViewAllMaterials from "../pages/Dashboard/Admin/ViewAllMaterials";
-import BookingMaterials from "../pages/Dashboard/Guest/BookingMaterials";
-import ViewBookedMaterials from "../pages/Dashboard/Guest/ViewBookedMaterials";
+import BookingMaterials from "../pages/Dashboard/User/BookingMaterials";
+import ViewBookedMaterials from "../pages/Dashboard/User/ViewBookedMaterials";
 import AdminRoute from "./AdminRoute";
 import Statistics from "../components/Statistics/Statistics";
+import Campaign from "../pages/Home/Campaign/Campaign";
+import SessionDetails from "../pages/Home/Common/ProductDetails";
+import AllSession from "../pages/Home/PopularProduct/AllSession";
+import UpdateSession from "../pages/Home/PopularProduct/UpdateSession";
+import Shop from "../pages/Home/Shop/Shop";
+import ViewAllProducts from "../pages/Dashboard/Seller/ViewAllProducts";
+import UpdatesProduct from "../pages/Dashboard/Seller/UpdatesProduct";
+import ManageCategory from "../pages/Dashboard/Admin/ManageCategory";
+import Goods from "../pages/Home/CategoryProduct/Goods";
+import AskAdvertise from "../pages/Dashboard/Seller/Advertise/AskAdvertise";
+import UpdateCategoryDetails from "../pages/Dashboard/Admin/UpdateCategoryDetails";
+import ManageAdvertise from "../pages/Dashboard/Admin/ManageAdvertise/ManageAdvertise";
+import UpdateAdvertiseProduct from "../pages/Dashboard/Admin/ManageAdvertise/UpdateAdvertiseProduct";
+import Books from "../pages/Home/Books/Books";
+import ShoppingCart from "../pages/Cart/ShoppingCart/ShoppingCart";
+import ProductDetails from "../pages/Home/Common/ProductDetails";
+import ShippingCart from "../pages/Cart/ShoppingCart/ShippingCart";
+import MyOrders from "../pages/Dashboard/User/MyOrders";
+import ProvideFeedback from "../pages/Dashboard/User/ProvideFeedback";
 
 export const router = createBrowserRouter([
   {
@@ -44,12 +59,36 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/session/:id",
+        path: "/products/:id",
         element: (
           <PrivateRoute>
-            <SessionDetails />
+            <ProductDetails />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/campaign",
+        element: <Campaign />,
+      },
+      {
+        path: "/books",
+        element: <Books />,
+      },
+      {
+        path: "/cart",
+        element: <ShoppingCart />,
+      },
+      {
+        path: "/shipping",
+        element: <ShippingCart />,
+      },
+      {
+        path: "/product-category/:category",
+        element: <Goods/>,
+      },
+      {
+        path: "/shop",
+        element: <Shop />,
       },
       {
         path: "/all-session",
@@ -63,7 +102,7 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
-      
+
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
     ],
@@ -104,21 +143,21 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "viewSession",
+        path: "manageCategory",
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <ViewAllSessionByAdmin />
+              <ManageCategory/>
             </AdminRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: "viewSession/update/:id",
+        path: "manageCategory/update/:id",
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <UpdateSession></UpdateSession>
+              <UpdateCategoryDetails/>
             </AdminRoute>
           </PrivateRoute>
         ),
@@ -158,14 +197,35 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "manage-advertise",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageAdvertise></ManageAdvertise>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-advertise/update/:id",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <UpdateAdvertiseProduct/>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/session/${params.id}`),
+      },
 
       //STUDENT ROUTE
       {
-        path: "myBooking",
+        path: "myOrders",
         element: (
           <PrivateRoute>
-            
-            <MyBookings />
+            <MyOrders />
           </PrivateRoute>
         ),
       },
@@ -200,10 +260,10 @@ export const router = createBrowserRouter([
           ),
       },
       {
-        path: "createNotes",
+        path: "provideFeedback",
         element: (
           <PrivateRoute>
-            <CreateNotes></CreateNotes>
+            <ProvideFeedback/>
           </PrivateRoute>
         ),
       },
@@ -234,48 +294,54 @@ export const router = createBrowserRouter([
         ),
       },
 
-
-
-      //TUTOR ROUTE
+      //SELLER ROUTE
       {
-        path: "createStudySession",
+        path: "createProduct",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <CreateStudySession></CreateStudySession>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: "viewStudySession",
+        path: "viewAllProducts",
         element: (
           <PrivateRoute>
-            <TutorRoute>
-              <ViewAllSession></ViewAllSession>
-            </TutorRoute>
+            <SellerRoute>
+              <ViewAllProducts />
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
       {
-        path: "viewStudySession/update/:id",
+        path: "advertisement",
         element: (
           <PrivateRoute>
-            <TutorRoute>
-              <UpdateSession></UpdateSession>
-            </TutorRoute>
+            <SellerRoute>
+              <AskAdvertise/>
+            </SellerRoute>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/session/${params.id}`),
+      },
+      {
+        path: "viewAllProducts/update/:id",
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <UpdatesProduct />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "viewStudySession/rejectDetails/:id",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <RejectDetails></RejectDetails>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
@@ -286,9 +352,9 @@ export const router = createBrowserRouter([
         path: "uploadMaterials",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <UploadMaterials></UploadMaterials>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -296,9 +362,9 @@ export const router = createBrowserRouter([
         path: "uploadMaterials/uploadDetails/:id",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <UploadMaterialForm></UploadMaterialForm>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
@@ -308,9 +374,9 @@ export const router = createBrowserRouter([
         path: "viewMaterials",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <ViewMaterials></ViewMaterials>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
@@ -319,9 +385,9 @@ export const router = createBrowserRouter([
         path: "viewMaterials/updateMaterials/:id",
         element: (
           <PrivateRoute>
-            <TutorRoute>
+            <SellerRoute>
               <UpdateMaterials></UpdateMaterials>
-            </TutorRoute>
+            </SellerRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>

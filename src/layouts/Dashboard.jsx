@@ -1,10 +1,14 @@
 import {
+  FaAdversal,
   FaCalendar,
   FaChartLine,
+  FaDollarSign,
   FaEye,
   FaHeadSideCoughSlash,
   FaHome,
   FaList,
+  FaMoneyBill,
+  FaMoneyCheck,
   FaNotesMedical,
   FaRegBookmark,
   
@@ -79,14 +83,19 @@ const Dashboard = () => {
                  
 
                     <li>
+                      <NavLink to="/dashboard/manageCategory">
+                        <FaList /> Manage Category
+                      </NavLink>
+                    </li>
+                    <li>
                       <NavLink to="/dashboard/viewSession">
-                        <FaList /> View All Sessions
+                        <FaList /> Payment management
                       </NavLink>
                     </li>
 
                     <li>
                       <NavLink to="/dashboard/view-all-materials">
-                        <FaEye /> All Materials
+                        <FaEye /> Sales Report
                       </NavLink>
                     </li>
 
@@ -95,10 +104,15 @@ const Dashboard = () => {
                         <FaUsers /> Manage Users
                       </NavLink>
                     </li>
+                    <li>
+                      <NavLink to="/dashboard/manage-advertise">
+                        <FaUsers /> Manage Advertise
+                      </NavLink>
+                    </li>
                   </>
                 )}
 
-                {role === "student" && (
+                {role === "user" && (
                   <>
                     <li>
                       <NavLink end to="/dashboard">
@@ -107,17 +121,17 @@ const Dashboard = () => {
                     </li>
 
                     <li>
-                      <NavLink to="/dashboard/myBooking">
-                        <FaRegBookmark /> My Booking
+                      <NavLink to="/dashboard/myOrders">
+                        <FaRegBookmark /> My Orders
                       </NavLink>
                     </li>
 
-                    <li>
-                      <NavLink to="/dashboard/createNotes">
-                        <FaNotesMedical /> Create Notes
+                     <li>
+                      <NavLink to="/dashboard/provideFeedback">
+                        <FaNotesMedical /> Give Suggession
                       </NavLink>
                     </li>
-
+{/*
                     <li>
                       <NavLink to="/dashboard/manageNotes">
                         <FaStickyNote /> Manage Notes
@@ -128,11 +142,11 @@ const Dashboard = () => {
                       <NavLink to="/dashboard/studyMaterials">
                         <FaHeadSideCoughSlash /> View Study Materials
                       </NavLink>
-                    </li>
+                    </li> */}
                   </>
                 )}
 
-                {role === "tutor" && (
+                {role === "seller" && (
                   <>
                     <li>
                       <NavLink end to="/dashboard">
@@ -141,30 +155,29 @@ const Dashboard = () => {
                     </li>
 
                     <li>
-                      <NavLink to="/dashboard/createStudySession">
-                        <FaCalendar /> Create Study Session
+                      <NavLink to="/dashboard/createProduct">
+                        <FaCalendar /> Create Products
                       </NavLink>
                     </li>
 
                     <li>
-                      <NavLink to="/dashboard/viewStudySession">
-                        <FaList /> View all Sessions
+                      <NavLink to="/dashboard/viewAllProducts">
+                        <FaList /> View all Products
                       </NavLink>
                     </li>
 
                     <li>
-                      <NavLink to="/dashboard/uploadMaterials">
-                        <FaUpload /> Upload Materials
+                      <NavLink to="/dashboard/paymentHistory">
+                        <FaDollarSign /> Payment History
                       </NavLink>
                     </li>
-
                     <li>
-                      <NavLink to="/dashboard/viewMaterials">
-                        <FaEye /> View all Materials
+                      <NavLink to="/dashboard/advertisement">
+                        <FaAdversal /> Ask Advertisement
                       </NavLink>
                     </li>
                   </>
-                )}
+                 )} 
               </ul>
             </div>
 

@@ -38,7 +38,7 @@ const UpdateSessionModal = ({
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex items-center justify-center p-4 text-center">
             <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
@@ -53,7 +53,7 @@ const UpdateSessionModal = ({
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Update Room Info
+                  Update Advertise Status
                 </DialogTitle>
                 <div className="mt-2 w-full">
                   {/* Update room form */}

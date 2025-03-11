@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import useRole from "../../hooks/useRole";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import AdminStatistics from "./AdminStatistics";
-import StudentStatistics from "./StudentStatistics";
-import TutorStatistics from "./TutorStatistics";
+import StudentStatistics from "./UserStatistics";
+import TutorStatistics from "./SellerStatistics";
 // import AdminStatistics2 from "../Hasan/AdminStatistics2";
 
 
@@ -15,8 +15,8 @@ const Statistics = () => {
   return <>
   {role === "admin" && <AdminStatistics></AdminStatistics>}
   {/* {role === "admin" && <AdminStatistics2></AdminStatistics2>} */}
-  {role === "tutor" && <TutorStatistics></TutorStatistics>}
-  {role === "student" && <StudentStatistics></StudentStatistics>}
+  {role === "seller" && <TutorStatistics></TutorStatistics>}
+  {role === "user" && <StudentStatistics></StudentStatistics>}
   </>;
 };
 
