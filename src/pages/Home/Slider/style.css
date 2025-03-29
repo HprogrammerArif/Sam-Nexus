@@ -1,0 +1,16 @@
+.swiper {
+  width: auto;
+  height: 13rem;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .swiper {
+    height: 20rem;
+  }
+}
+@media (min-width: 1024px) {
+  .swiper {
+    height: 28rem;
+  }
+}
