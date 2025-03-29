@@ -1,17 +1,34 @@
 import { Helmet } from 'react-helmet-async'
-import Categories from '../../components/Categories/Categories'
-import Rooms from '../../components/Home/Rooms'
+import Carousel from './Slider/Carousel'
+import Rooms from './PopularProduct/PopularProduct'
+import Policy from './Policy/Policy'
+import Banner from './Banner/Banner'
+import FeatureProductCarousel from './FeatureProduct/FeatureProductCarousel'
+import Category from './Category/Category'
+import NewArrivalsProductCarosole from './NewArrivalsProduct/NewArrivalsProductCarosole'
+import Partner from './Partner/Partner'
+import BestOfWeek from './BestOfWeek/BestOfWeek'
 
 const Home = () => {
   return (
     <div>
       <Helmet>
-        <title>StayVista | Vacation Homes & Condo Rentals</title>
+        <title>StayVision | Homes</title>
       </Helmet>
+      <Carousel></Carousel>
+      <Policy/>
+      <Banner/>
+      <FeatureProductCarousel/>
       {/* Categories section  */}
-      <Categories />
+      {/* <Categories /> */}
       {/* Rooms section */}
+      <Category/>
       <Rooms />
+      <BestOfWeek/>
+      {/* <Tutor></Tutor> */}
+      <NewArrivalsProductCarosole/>
+      
+      <Partner/>
     </div>
   )
 }
