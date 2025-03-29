@@ -14,30 +14,6 @@ const Navbar = () => {
   const [cart] = useCart();
   console.log(cart);
 
-  // const [theme, setTheme] = useState("light");
-  // // const { loading } = useContext(AuthContex);
-
-  // useEffect(() => {
-  //   localStorage.setItem("theme", theme);
-  //   const localTheme = localStorage.getItem("theme");
-  //   document.querySelector("html").setAttribute("data-theme", localTheme);
-  // }, [theme]);
-
-  // // if (loading) {
-  // //   return <span className="loading loading-bars loading-lg"></span>
-  // // }
-
-  // // const handleToggle = (e) => {
-  // //   if (e.target.checked) {
-  // //     setTheme("dark");
-  // //   } else {
-  // //     setTheme("light");
-  // //   }
-  // // };
-
-  //console.log(theme);
-
-
 
   const handleLogOut = () => {
     logOut()
