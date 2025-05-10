@@ -29,24 +29,7 @@ const Navbar = () => {
 
   const links = (
     <>
-      {/* <li>
-        <NavLink to="/">Home</NavLink>
-      </li> */}
-      {/* <li>
-        <NavLink to="/all-foods">All Foods</NavLink>
-      </li>
-      <li>
-        <NavLink to="/food-gallery">Gallery</NavLink>
-      </li> */}
-
-      {/* {user && (
-        <li className="bg-red-900 text-gray-50 rounded-md">
-          <NavLink to="/dashboard">Dashboard</NavLink>
-        </li>
-      )} */}
-      {/* <li>
-        <NavLink to="/contact">Contact</NavLink>
-      </li> */}
+      
       <Link className="mr-3" to="/shop">
         <button className="self-center px-3 py-1.5 font-normal rounded bg-purple-800 text-gray-100">
           Shop

@@ -44,7 +44,7 @@ const UpdateItem = () => {
   return (
     <div>
       <Helmet>
-        <title>Update Notes || Stayvision</title>
+        <title>Update Notes || SamNexus</title>
       </Helmet>
       <section className="p-10 bg-gradient-to-l from-green-100 to-violet-200 text-white">
         <form

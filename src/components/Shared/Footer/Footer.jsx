@@ -146,7 +146,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="py-6 font-bold text-sm text-center dark:text-gray-600">
-        © StayVision Co. All rights reserved.
+        © SamNexus Co. All rights reserved.
       </div>
     </footer>
   );

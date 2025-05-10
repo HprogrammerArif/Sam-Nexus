@@ -1,9 +1,9 @@
 #Wave-2
 Assignment12_category_0023
 
-WEBSITE NAME: StayVision
+WEBSITE NAME: SamNexus
 
-Live URL: https://stayvision-e5db4.web.app/
+Live URL: https://SamNexus-e5db4.web.app/
 
 Admin User Name: admin@test.com
 Password: 123456
@@ -21,3 +21,9 @@ TEN NOTEABLE FEATURE:
 9. Responsive Home Page
 10. Implement search sort functionality
 and so on.
+
+
+
+
+
+

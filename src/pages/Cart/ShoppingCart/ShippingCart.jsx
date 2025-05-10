@@ -1,6 +1,6 @@
 import useAuth from "../../../hooks/useAuth";
-import { FaBackward, FaCoins, FaFacebook, FaMinus, FaPaypal, FaPlus, FaWhatsapp } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
+import { FaBackward, FaCoins,  FaPaypal,  FaWhatsapp } from "react-icons/fa";
+import {  useNavigate } from "react-router-dom";
 import useCart from "../../../hooks/useCart";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
