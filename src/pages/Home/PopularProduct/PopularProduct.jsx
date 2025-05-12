@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import Container from "../../../components/Shared/Container";
@@ -10,6 +10,7 @@ import { useState } from "react";
 import useRole from "../../../hooks/useRole";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { addToCart } from "../../../utils/cartStorage";
 
 
 const PopularProduct = () => {
@@ -18,7 +19,6 @@ const PopularProduct = () => {
   const [processing, setProcessing] = useState(false);
   const [role] = useRole();
   const { user } = useAuth()
-  const navigate = useNavigate()
 
   const { data: allPopularProducts = [], isLoading, refetch } = useQuery({
     queryKey: ["all-popular-products"],
@@ -31,59 +31,53 @@ const PopularProduct = () => {
 
 
   
-  const handleSubmit = async (event, _id) => {
-    console.log(_id);
-    event.preventDefault();
-    //setSelectedProductId(_id);
+ const handleAddToCart = async (event, _id) => {
+  event.preventDefault();
 
-    if (role === "seller" || role === "admin") {
-      return toast.error(`Action Not Allowed!! You are a ${role}`);
-    }
+  if (role === "seller" || role === "admin") {
+    return toast.error(`Action Not Allowed! You are a ${role}`);
+  }
 
-    // if (!user) {
-    //   return navigate("/login");
-    // }
-    setProcessing(true);
+  setProcessing(true);
 
-    const { data: singleProduct = {} } = await axiosSecure.get(
-      `/singleProduct/${_id}`
-    );
-    console.log(singleProduct);
+  try {
+    const { data: singleProduct = {} } = await axiosSecure.get(`/singleProduct/${_id}`);
 
-    //1. create payment info obj
-    const paymentInfo = {
-      ...singleProduct,
-      price: singleProduct?.productPrice,
+    console.log({singleProduct});
+    const cartItem = {
+      productId: singleProduct._id,
+      name: singleProduct.title,
+      price: singleProduct.productPrice,
+      image: singleProduct.image_url,
+      brandName: singleProduct.brandName,
+      category: singleProduct.category,
+      discount: singleProduct.discount,
+      quantity: 1,
       user: {
         name: user?.displayName,
         email: user?.email,
         image: user?.photoURL,
       },
-      productId: singleProduct?._id,
-      transactionId: null,
+      seller: {
+        name: singleProduct?.seller?.name,
+        email: singleProduct?.seller?.email,
+        image: singleProduct?.seller?.image,
+      },
       date: new Date(),
-      quantity: 1,
-      status: true
     };
-    delete paymentInfo._id;
-    console.log(paymentInfo);
 
-    try {
-      //2. save payment info in booking collection(db)
-      const { data } = await axiosSecure.post("/carts", paymentInfo);
-      console.log(data);
+    console.log(cartItem);
 
-      //update ui
-      refetch();
-      toast.success("Product Added Sucessfully To Cart!!");
-      //navigate("/dashboard/myBooking");
-      setProcessing(false);
-    } catch (err) {
-      console.log(err);
-      //toast.success(err);
-    }
-    setProcessing(false);
-  };
+    addToCart(cartItem);
+    toast.success("Added to cart successfully!");
+   // refetch(); // optional: for UI refresh
+  } catch (err) {
+    console.error("Add to cart error:", err);
+    toast.error("Failed to add to cart.");
+  }
+
+  setProcessing(false);
+};
 
   console.log(allPopularProducts);
   if (isLoading || processing) return <LoadingSpinner />;
@@ -102,7 +96,7 @@ const PopularProduct = () => {
           <div className=" container mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-10">
             {/* {allPopularProducts.filter(job => job.status ==='Approved').slice(0, 6).map((product) => ( */}
             {allPopularProducts.filter(job => job.status ==='pending').slice(0, 12).map((product) => (
-              <PopularProductCard key={product._id} product={product} handleSubmit={handleSubmit} />
+              <PopularProductCard key={product._id} product={product} handleSubmit={handleAddToCart} />
             ))}
           </div>
 

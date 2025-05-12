@@ -141,7 +141,7 @@ const Shop = () => {
     <Container>
       <Cover
         img="https://i.ibb.co/yNjB5ks/photo-1592417817038-d13fd7342605-q-80-w-1470-auto-format-fit-crop-ixlib-rb-4-0.jpg"
-        title="Our Best Teacher Will Teach You"
+        title="Our Best Teachers Will Teach You"
         subTitle="Our Top Study Metarial is your gateway to extraordinary culinary experiences. We believe that you deserve nothing but the best, which is why we meticulously curate our selection to offer you exceptional flavors"
       ></Cover>
 

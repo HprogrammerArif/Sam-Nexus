@@ -7,9 +7,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import Main from "../layouts/Main";
 import Dashboard from "../layouts/Dashboard";
 import UserHome from "../pages/Dashboard/User/UserHome";
-import MyBookings from "../pages/Dashboard/User/MyOrders";
 import BookingDetails from "../pages/Dashboard/User/BookingDetails";
-import CreateNotes from "../pages/Dashboard/User/ProvideFeedback";
 import ManageNotes from "../pages/Dashboard/User/ManageNotes";
 import UpdateItem from "../pages/Dashboard/User/UpdateItem";
 import StudyMaterials from "../pages/Dashboard/User/StudyMaterials";
@@ -17,7 +15,6 @@ import SellerRoute from "./SellerRoute";
 import CreateStudySession from "../pages/Dashboard/Seller/CreateProduct";
 import Profile from "../pages/Dashboard/Common/Profile";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
-import ViewAllSessionByAdmin from "../pages/Dashboard/Admin/ManageCategory";
 import RejectDetails from "../pages/Dashboard/Seller/RejectDetails";
 import UploadMaterials from "../pages/Dashboard/Seller/UploadMaterials";
 import UploadMaterialForm from "../pages/Dashboard/Seller/UploadMaterialForm";
@@ -29,9 +26,6 @@ import ViewBookedMaterials from "../pages/Dashboard/User/ViewBookedMaterials";
 import AdminRoute from "./AdminRoute";
 import Statistics from "../components/Statistics/Statistics";
 import Campaign from "../pages/Home/Campaign/Campaign";
-import SessionDetails from "../pages/Home/Common/ProductDetails";
-import AllSession from "../pages/Home/PopularProduct/AllSession";
-import UpdateSession from "../pages/Home/PopularProduct/UpdateSession";
 import Shop from "../pages/Home/Shop/Shop";
 import ViewAllProducts from "../pages/Dashboard/Seller/ViewAllProducts";
 import UpdatesProduct from "../pages/Dashboard/Seller/UpdatesProduct";
@@ -90,14 +84,7 @@ export const router = createBrowserRouter([
         path: "/shop",
         element: <Shop />,
       },
-      {
-        path: "/all-session",
-        element: (
-          <PrivateRoute>
-            <AllSession />
-          </PrivateRoute>
-        ),
-      },
+      
       {
         path: "profile",
         element: <Profile />,
