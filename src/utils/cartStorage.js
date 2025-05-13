@@ -41,12 +41,16 @@ export const decrementCartItem = (productId) => {
   const cart = getCart();
   const index = cart.findIndex(item => item.productId === productId);
 
+  const product = cart.map(item => item.productId === productId)
+
+  console.log({index, cart, product});
   if (index !== -1) {
     if (cart[index].quantity > 1) {
       cart[index].quantity -= 1;
-    } else {
-      cart.splice(index, 1); // Remove the item if quantity is 1
     }
+    // } else {
+    //   cart.splice(index, 1); // Remove the item if quantity is 1
+    // }
     saveCart(cart);
   }
 
@@ -60,6 +64,14 @@ export const removeFromCart = (productId) => {
   saveCart(cart);
   return cart;
 };
+
+// Clear entire cart
+export const clearCart = () => {
+  const cart = []; // set cart to empty
+  saveCart(cart);  // save empty cart to storage (e.g., localStorage)
+  return cart;
+};
+
 
 // Get total items count
 export const getTotalCartItems = () => {
