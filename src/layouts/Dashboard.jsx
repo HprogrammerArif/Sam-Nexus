@@ -87,11 +87,11 @@ const Dashboard = () => {
                         <FaList /> Manage Category
                       </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                       <NavLink to="/dashboard/viewSession">
                         <FaList /> Payment management
                       </NavLink>
-                    </li>
+                    </li> */}
 
                     <li>
                       <NavLink to="/dashboard/view-all-materials">
@@ -128,7 +128,7 @@ const Dashboard = () => {
 
                      <li>
                       <NavLink to="/dashboard/provideFeedback">
-                        <FaNotesMedical /> Give Suggession
+                        <FaNotesMedical /> Give Feedback
                       </NavLink>
                     </li>
 {/*
@@ -166,11 +166,11 @@ const Dashboard = () => {
                       </NavLink>
                     </li>
 
-                    <li>
+                    {/* <li>
                       <NavLink to="/dashboard/paymentHistory">
                         <FaDollarSign /> Payment History
                       </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                       <NavLink to="/dashboard/advertisement">
                         <FaAdversal /> Ask Advertisement

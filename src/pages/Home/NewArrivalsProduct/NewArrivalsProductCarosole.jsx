@@ -18,7 +18,7 @@ import PopularProductCard from "../PopularProduct/PopularProductCard";
 import useAuth from "../../../hooks/useAuth";
 import useRole from "../../../hooks/useRole";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../../utils/cartStorage";
 
 export default function NewArrivalsProductCarosole() {
   const progressCircle = useRef(null);
@@ -27,15 +27,13 @@ export default function NewArrivalsProductCarosole() {
     progressCircle.current.style.setProperty("--progress", 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
-  //const [selectedProductId, setSelectedProductId] = useState(null);
+
   const [processing, setProcessing] = useState(false);
   const [role] = useRole();
   const { user } = useAuth();
-  //const { id } = useParams();
-  const navigate = useNavigate()
 
   const {
-    data: products = [],
+    data: newArivalsproducts = [],
     isLoading,
     refetch,
   } = useQuery({
@@ -46,56 +44,53 @@ export default function NewArrivalsProductCarosole() {
     },
   });
 
-  const handleSubmit = async (event, _id) => {
-    console.log(_id);
+  const handleAddToCart = async (event, _id) => {
     event.preventDefault();
-    //setSelectedProductId(_id);
 
     if (role === "seller" || role === "admin") {
-      return toast.error(`Action Not Allowed!! You are a ${role}`);
+      return toast.error(`Action Not Allowed! You are a ${role}`);
     }
 
-    // if (!user) {
-    //   return navigate("/login");
-    // }
     setProcessing(true);
 
-    const { data: singleProduct = {} } = await axiosSecure.get(
-      `/singleProduct/${_id}`
-    );
-    console.log(singleProduct);
-
-    //1. create payment info obj
-    const paymentInfo = {
-      ...singleProduct,
-      price: singleProduct?.productPrice,
-      user: {
-        name: user?.displayName,
-        email: user?.email,
-        image: user?.photoURL,
-      },
-      productId: singleProduct?._id,
-      transactionId: null,
-      date: new Date(),
-      quantity: 1,
-      status: true
-    };
-    //delete paymentInfo._id;
-    console.log(paymentInfo);
-
     try {
-      //2. save payment info in booking collection(db)
-      const { data } = await axiosSecure.post("/carts", paymentInfo);
-      console.log(data);
+      const { data: singleProduct = {} } = await axiosSecure.get(
+        `/singleProduct/${_id}`
+      );
 
-      //update ui
-      refetch();
-      toast.success("Product Added Sucessfully To Cart!!");
-      //navigate("/dashboard/myBooking");
-      setProcessing(false);
+      console.log({ singleProduct });
+      const cartItem = {
+        productId: singleProduct._id,
+        title: singleProduct.title,
+        price: singleProduct.productPrice,
+        image: singleProduct.image_url,
+        brandName: singleProduct.brandName,
+        category: singleProduct.category,
+        discount: singleProduct.discount,
+        quantity: 1,
+        user: {
+          name: user?.displayName,
+          email: user?.email,
+          image: user?.photoURL,
+        },
+        seller: {
+          name: singleProduct?.seller?.name,
+          email: singleProduct?.seller?.email,
+          image: singleProduct?.seller?.image,
+        },
+        date: new Date(),
+      };
+
+      console.log(cartItem);
+
+      addToCart(cartItem);
+      toast.success("Added to cart successfully!");
+      // refetch(); // optional: for UI refresh
     } catch (err) {
-      console.log(err);
+      console.error("Add to cart error:", err);
+      toast.error("Failed to add to cart.");
     }
+
     setProcessing(false);
   };
 
@@ -140,9 +135,9 @@ export default function NewArrivalsProductCarosole() {
           },
         }}
       >
-        {products.map((product, index) => (
+        {newArivalsproducts?.map((product, index) => (
           <SwiperSlide key={index}>
-            <PopularProductCard product={product} handleSubmit={handleSubmit} />
+            <PopularProductCard product={product} handleSubmit={handleAddToCart} />
           </SwiperSlide>
         ))}
 
