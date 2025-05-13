@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { LiaFacebook, LiaPhoneSolid, LiaWhatsapp } from "react-icons/lia";
-import { getCart } from "../../../utils/cartStorage";
+import { clearCart, getCart } from "../../../utils/cartStorage";
 
 const ShippingCart = () => {
   const { user } = useAuth();
@@ -24,7 +24,6 @@ const ShippingCart = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData.entries());
-    const userEmail = user?.email;
     console.log(formValues);
 
     const orderData = {
@@ -55,12 +54,18 @@ const ShippingCart = () => {
       console.log(data);
       toast.success(`Order Sucessfull!!`);
 
+      clearCart();
+
       //await axiosSecure.patch(`/cart/update/${userEmail}`, { status: false });
 
-      navigate("/dashboard/myOrders");
+      if (user) {
+        navigate("/dashboard/myOrders");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       console.log(err);
-      toast.error("Failed to Order!");
+      toast.error(err?.response?.data?.message || "Failed to Order!");
     }
   };
 
@@ -88,8 +93,9 @@ const ShippingCart = () => {
                     name="name"
                     id="name"
                     required
+                    defaultValue={user?.displayName}
+                    className="block w-full px-4 py-2 mt-1 text-gray-700  border border-gray-200 rounded-md focus:outline-none"
                     type="text"
-                    className="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                   />
                 </div>
 
@@ -99,12 +105,14 @@ const ShippingCart = () => {
                     <label className="text-gray-700" htmlFor="phone">
                       <b>Phone No:</b>
                     </label>
+
                     <input
-                      id="phone"
+                      type="tel"
                       name="phone"
-                      placeholder="+88O160...."
+                      id="phone"
+                     
+                      placeholder="01XXXXXXX"
                       required
-                      type="number"
                       className="block w-full px-4 py-2 mt-1 text-gray-700  border border-gray-200 rounded-md focus:outline-none"
                     />
                   </div>
@@ -115,7 +123,9 @@ const ShippingCart = () => {
                     <input
                       id="altPhone"
                       name="altPhone"
-                      type="number"
+                      
+                      placeholder="01XXXXXXX"
+                      type="tel"
                       className="block w-full px-4 py-2 mt-1 text-gray-700  border border-gray-200 rounded-md focus:outline-none"
                     />
                   </div>
@@ -131,9 +141,10 @@ const ShippingCart = () => {
                       id="city"
                       name="city"
                       required
+                      defaultValue=""
                       className="block w-full px-4 py-2 mt-1 text-gray-700 border border-gray-200 rounded-md focus:outline-none"
                     >
-                      <option value="" disabled selected>
+                      <option value="" disabled>
                         Select City
                       </option>
                       <option value="Dhaka">Dhaka</option>
@@ -186,8 +197,9 @@ const ShippingCart = () => {
                       name="email"
                       id="email"
                       required
+                      defaultValue={user?.email}
+                      className="block w-full px-4 py-2 mt-1 text-gray-700  border border-gray-200 rounded-md focus:outline-none"
                       type="text"
-                      className="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                     />
                   </div>
                 </div>

@@ -207,7 +207,7 @@ export const router = createBrowserRouter([
           fetch(`${import.meta.env.VITE_API_URL}/session/${params.id}`),
       },
 
-      //STUDENT ROUTE
+      //USER ROUTE
       {
         path: "myOrders",
         element: (
@@ -216,26 +216,10 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "studyMaterials",
-        element: (
-          <PrivateRoute>
-            <BookingMaterials />
-          </PrivateRoute>
-        ),
-      },
+     
 
       {
-        path: "studyMaterials/view-booked-materials/:id",
-        element: (
-          <PrivateRoute>
-            <ViewBookedMaterials />
-          </PrivateRoute>
-        ),
-      },
-
-      {
-        path: "myBooking/booking-details/:id",
+        path: "myOrders/booking-details/:id",
         element: (
           <PrivateRoute>
             <BookingDetails></BookingDetails>
@@ -254,14 +238,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "manageNotes",
-        element: (
-          <PrivateRoute>
-            <ManageNotes></ManageNotes>
-          </PrivateRoute>
-        ),
-      },
+     
       {
         path: "/dashboard/updateNotes/:id",
         element: (

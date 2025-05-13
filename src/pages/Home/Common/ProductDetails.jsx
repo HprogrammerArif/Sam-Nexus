@@ -8,6 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import BookingModal from "../../../components/Modal/BookingModal";
+import { addToCart } from "../../../utils/cartStorage";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -22,13 +23,7 @@ const ProductDetails = () => {
   const { user } = useAuth();
   console.log(role);
 
-  const handleModalOpen = () => {
-    if (role === "seller" || role === "admin") {
-      toast.error(`Action Not Allowed!! You are a ${role}`);
-    } else {
-      setIsOpen(true);
-    }
-  };
+  
 
   const {
     data: singleProduct = {},
@@ -53,55 +48,55 @@ const ProductDetails = () => {
     setIsOpen(false);
   };
 
-  const bookingInfo = {
-    ...singleProduct,
-    price: singleProduct?.productPrice,
-    user: {
-      name: user?.displayName,
-      email: user?.email,
-      image: user?.photoURL,
-    },
-      quantity: 1,
-      status: true
-  };
-
-  const handleSubmit = async (event) => {
+  
+  
+  const handleAddToCart = async (event, _id) => {
     event.preventDefault();
+
     if (role === "seller" || role === "admin") {
-      return toast.error(`Action Not Allowed!! You are a ${role}`);
+      return toast.error(`Action Not Allowed! You are a ${role}`);
     }
+
     setProcessing(true);
 
-    //1. create payment info obj
-    const paymentInfo = {
-      ...bookingInfo,
-      productId: bookingInfo._id,
-      transactionId: null,
-      date: new Date(),
-    };
-    //delete paymentInfo._id;
-    console.log(paymentInfo);
-
     try {
-      //2. save payment info in booking collection(db)
-      const { data } = await axiosSecure.post("/carts", paymentInfo);
-      console.log(data);
+      const { data: singleProduct = {} } = await axiosSecure.get(
+        `/singleProduct/${_id}`
+      );
 
-      // //3. changed room status to booked in db
-      // const { data: updateStatus } = await axiosSecure.patch(
-      //   `/session/status/${bookingInfo?._id}`,
-      //   { status: true }
-      // );
-      // console.log(updateStatus);
+      console.log({ singleProduct });
+      const cartItem = {
+        productId: singleProduct._id,
+        title: singleProduct.title,
+        price: singleProduct.productPrice,
+        image: singleProduct.image_url,
+        brandName: singleProduct.brandName,
+        category: singleProduct.category,
+        discount: singleProduct.discount,
+        quantity: 1,
+        user: {
+          name: user?.displayName,
+          email: user?.email,
+          image: user?.photoURL,
+        },
+        seller: {
+          name: singleProduct?.seller?.name,
+          email: singleProduct?.seller?.email,
+          image: singleProduct?.seller?.image,
+        },
+        date: new Date(),
+      };
 
-      //update ui
-      refetch();
-      toast.success("Product Added Sucessfully To Cart!!");
-      //navigate("/dashboard/myBooking");
-      setProcessing(false);
+      console.log(cartItem);
+
+      addToCart(cartItem);
+      toast.success("Added to cart successfully!");
+      // refetch(); // optional: for UI refresh
     } catch (err) {
-      console.log(err);
+      console.error("Add to cart error:", err);
+      toast.error("Failed to add to cart.");
     }
+
     setProcessing(false);
   };
 
@@ -167,7 +162,7 @@ const ProductDetails = () => {
             <div className=" flex mt-6 md:mt-8 gap-3">
               <button
                 //onClick={handleModalOpen}
-                onClick={handleSubmit}
+                onClick={(e) =>handleAddToCart(e, id)}
                 
                 //disabled={room?.booked === true}
                 className={`px-4 py-2 font-bold text-white  bg-slate-700 rounded `}

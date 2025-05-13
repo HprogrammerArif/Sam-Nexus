@@ -1,5 +1,6 @@
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import {
@@ -11,8 +12,10 @@ import {
 } from "../../../utils/cartStorage";
 import customImage from "../../../assets/images/placeholder.jpg";
 import { LiaWhatsapp } from "react-icons/lia";
+import toast from "react-hot-toast";
 
 const ShoppingCart = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState([]);
 
   // Load cart on first render
@@ -50,6 +53,14 @@ const ShoppingCart = () => {
   const handleDecrementCartItem = async (productId) => {
     decrementCartItem(productId);
     setCart(getCart()); // re-load updated cart
+  };
+
+  const handleGiftOrder = () => {
+    if (cart.length <= 0) {
+      toast.error("Select Product To Buy!");
+    } else {
+      navigate("/shipping");
+    }
   };
 
   if (processing) return <LoadingSpinner />;
@@ -222,18 +233,19 @@ const ShoppingCart = () => {
               <LiaWhatsapp className="w-7 h-7 lg:w-10 lg:h-10 text-gray-700 bg-green-50 rounded-full p-0.5" />
             </a>
 
-            <NavLink
-              to={"/shipping"}
+            <button
+              onClick={handleGiftOrder}
               className="bg-purple-500 py-3 text-slate-50 text-base"
             >
               Order As A Gifts
-            </NavLink>
-            <NavLink
-              to={"/shipping"}
+            </button>
+            <button
+            onClick={handleGiftOrder}
+              
               className="bg-blue-500  py-3  text-slate-50 text-base"
             >
               Proceed To Checkout
-            </NavLink>
+            </button>
           </div>
         </div>
       </div>

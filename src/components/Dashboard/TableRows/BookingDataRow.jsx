@@ -13,7 +13,7 @@ const BookingDataRow = ({ orders, order }) => {
             <div className="block relative">
               <img
                 alt="profile"
-                src={orders?.image_url}
+                src={orders?.image}
                 className="mx-auto object-cover rounded h-10 w-15 "
               />
             </div>
@@ -56,7 +56,7 @@ const BookingDataRow = ({ orders, order }) => {
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <Link
-          to={`booking-details/${orders._id}`}
+          to={`booking-details/${orders.productId}`}
           className="relative cursor-pointer inline-block px-3 py-2 font-semibold text-green-900 leading-tight"
         >
           <span
