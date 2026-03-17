@@ -26,8 +26,7 @@ const BestOfWeek = () => {
           </p>
 
           <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-            {allPopularProducts
-              .filter((job) => job.status === "pending")
+            {allPopularProducts?.filter((job) => job.status === "pending")
               .slice(0, 3)
               .map((product, index) => (
                 <>

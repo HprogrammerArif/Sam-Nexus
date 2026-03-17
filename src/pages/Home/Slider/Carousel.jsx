@@ -24,7 +24,7 @@ export default function Carousel() {
   };
 
   const {
-    data: advertiseData = [],
+    data: advertiseData,
     isLoading,
     refetch,
   } = useQuery({
